@@ -24,6 +24,8 @@
 #include <cstdint>
 #include <type_traits>
 
+#include "builtin.h"
+
 namespace bitop
 {
 int bsf32(uint32_t);

@@ -25,9 +25,9 @@
 namespace {
 
 // 以下の３つは、ビットボードのテーブルを初期化するための関数です
-Bitboard ComputeSlidingAttacks(Square from, Bitboard occ,
+Bitboard ComputeSlidingAttacks(Square from, const Bitboard& occ,
                                const std::vector<Square>& deltas);
-Bitboard ComputeOccupancy(Bitboard mask, uint32_t index);
+Bitboard ComputeOccupancy(const Bitboard& mask, uint32_t index);
 Bitboard ComputeCheckerCandidates(Piece, Square, bool adjacent_check_only);
 
 const ArrayMap<int, Square> g_lance_shifts = {
@@ -156,9 +156,11 @@ Array<Bitboard, 20224> Bitboard::bishop_attacks_bb_;
 Array<Bitboard, 512000> Bitboard::rook_attacks_bb_;
 ArrayMap<uint64_t, Square> Bitboard::eight_neighborhoods_magics_;
 
-Bitboard Bitboard::FileFill(Bitboard x) {
+Bitboard Bitboard::FileFill(const Bitboard& xx) {
   // Kogge-Stone Algorithm
   // (http://chessprogramming.wikispaces.com/Kogge-Stone+Algorithm)
+  Bitboard x(xx);
+
   x.xmm_ = _mm_or_si128(x.xmm_, _mm_srli_epi64(x.xmm_, 1));
   x.xmm_ = _mm_or_si128(x.xmm_, _mm_srli_epi64(x.xmm_, 2));
   x.xmm_ = _mm_or_si128(x.xmm_, _mm_srli_epi64(x.xmm_, 4));
@@ -215,7 +217,7 @@ void Bitboard::Print() const {
   std::printf("%s\n", ToString().c_str());
 }
 
-Bitboard AttacksFrom(Piece piece, Square from, Bitboard occ) {
+Bitboard AttacksFrom(Piece piece, Square from, const Bitboard& occ) {
   switch (piece.type()) {
     case kLance:
       return lance_attacks_bb(from, occ, piece.color());
@@ -435,7 +437,7 @@ namespace {
  * @param deltas 飛び利きの方向
  * @return 飛び利きのある場所を表すビットボード
  */
-Bitboard ComputeSlidingAttacks(Square from, Bitboard occ,
+Bitboard ComputeSlidingAttacks(Square from, const Bitboard& occ,
                                const std::vector<Square>& deltas) {
   Bitboard attacks_bb;
   for (Square delta : deltas)
@@ -455,10 +457,12 @@ Bitboard ComputeSlidingAttacks(Square from, Bitboard occ,
  * @param index 駒の配置パターンのインデックス
  * @return 飛び利きを遮る駒の配置パターン
  */
-Bitboard ComputeOccupancy(Bitboard mask, uint32_t index) {
+Bitboard ComputeOccupancy(const Bitboard& mask, uint32_t index) {
   Bitboard occ;
-  for (int i = 0, n = mask.count(); i < n; ++i) {
-    Square s = mask.pop_first_one();
+  Bitboard tmp(mask);
+
+  for (int i = 0, n = tmp.count(); i < n; ++i) {
+    Square s = tmp.pop_first_one();
     if (index & (UINT32_C(1) << i)) {
       occ.set(s);
     }

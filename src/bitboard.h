@@ -80,13 +80,13 @@ class Bitboard {
   }
 
   // 比較演算子
-  bool operator==(Bitboard rhs) const;
-  bool operator!=(Bitboard rhs) const { return !operator==(rhs); }
+  bool operator==(const Bitboard& rhs) const;
+  bool operator!=(const Bitboard& rhs) const { return !operator==(rhs); }
 
   /**
    * "(lhs & rhs).any()"と書くのと同等の結果を得つつ、高速化を図ったメソッドです.
    */
-  bool test(Bitboard rhs) const;
+  bool test(const Bitboard& rhs) const;
 
   // 要素へのアクセス
   bool operator[](Square) const;
@@ -103,18 +103,18 @@ class Bitboard {
   DirectionSet neighborhood8(Square) const;
 
   // 各種演算子
-  Bitboard& operator&=(Bitboard rhs);
-  Bitboard& operator|=(Bitboard rhs);
-  Bitboard& operator^=(Bitboard rhs);
+  Bitboard& operator&=(const Bitboard& rhs);
+  Bitboard& operator|=(const Bitboard& rhs);
+  Bitboard& operator^=(const Bitboard& rhs);
   Bitboard& operator<<=(size_t n);
   Bitboard& operator>>=(size_t n);
-  Bitboard operator&(Bitboard rhs) const { return Bitboard(*this) &= rhs; }
-  Bitboard operator|(Bitboard rhs) const { return Bitboard(*this) |= rhs; }
-  Bitboard operator^(Bitboard rhs) const { return Bitboard(*this) ^= rhs; }
+  Bitboard operator&(const Bitboard& rhs) const { return Bitboard(*this) &= rhs; }
+  Bitboard operator|(const Bitboard& rhs) const { return Bitboard(*this) |= rhs; }
+  Bitboard operator^(const Bitboard& rhs) const { return Bitboard(*this) ^= rhs; }
   Bitboard operator<<(size_t n) const    { return Bitboard(*this) <<= n;  }
   Bitboard operator>>(size_t n) const    { return Bitboard(*this) >>= n;  }
   Bitboard operator~() const;
-  Bitboard andnot(Bitboard rhs) const; // SSEのPANDN命令を使っています
+  Bitboard andnot(const Bitboard& rhs) const; // SSEのPANDN命令を使っています
 
   // set/reset
   Bitboard& set()           { xmm_ = _mm_cmpeq_epi8(xmm_, xmm_);  return *this; }
@@ -133,7 +133,7 @@ class Bitboard {
   /**
    * ビットが立っている段をすべて1で埋めるための関数です.
    */
-  static Bitboard FileFill(Bitboard bb);
+  static Bitboard FileFill(const Bitboard& bb);
 
   // 各種マスクの参照用メソッド
   static Bitboard board_bb() { return Bitboard(0x3ffff, 0x7fffffffffffffff); }
@@ -159,11 +159,11 @@ class Bitboard {
   static Bitboard step_attacks_bb(Piece p, Square s) { return step_attacks_bb_[s][p]; }
   static Bitboard min_attacks_bb(Piece p, Square s) { return min_attacks_bb_[s][p]; }
   static Bitboard max_attacks_bb(Piece p, Square s) { return max_attacks_bb_[s][p]; }
-  static Bitboard pawns_attacks_bb(Bitboard pawns, Color c);
-  static Bitboard lance_attacks_bb(Square s, Bitboard occ, Color c);
-  static Bitboard bishop_attacks_bb(Square s, Bitboard occ);
-  static Bitboard rook_attacks_bb(Square s, Bitboard occ);
-  static Bitboard queen_attacks_bb(Square s, Bitboard occ);
+  static Bitboard pawns_attacks_bb(const Bitboard& pawns, Color c);
+  static Bitboard lance_attacks_bb(Square s, const Bitboard& occ, Color c);
+  static Bitboard bishop_attacks_bb(Square s, const Bitboard& occ);
+  static Bitboard rook_attacks_bb(Square s, const Bitboard& occ);
+  static Bitboard queen_attacks_bb(Square s, const Bitboard& occ);
 
  private:
 
@@ -212,12 +212,12 @@ class Bitboard {
   __m128i xmm_;
 };
 
-inline bool Bitboard::operator==(Bitboard rhs) const {
+inline bool Bitboard::operator==(const Bitboard& rhs) const {
   __m128i cmp = _mm_cmpeq_epi8(xmm_, rhs.xmm_);
   return _mm_testc_si128(cmp, _mm_cmpeq_epi8(xmm_, xmm_));
 }
 
-inline bool Bitboard::test(Bitboard rhs) const {
+inline bool Bitboard::test(const Bitboard& rhs) const {
   return !_mm_testz_si128(xmm_, rhs.xmm_);
 }
 
@@ -299,17 +299,17 @@ inline DirectionSet Bitboard::neighborhood8(Square s) const {
   return DirectionSet(east_neighborhoods | west_neighborhoods);
 }
 
-inline Bitboard& Bitboard::operator&=(Bitboard rhs) {
+inline Bitboard& Bitboard::operator&=(const Bitboard& rhs) {
   xmm_ = _mm_and_si128(xmm_, rhs.xmm_);
   return *this;
 }
 
-inline Bitboard& Bitboard::operator|=(Bitboard rhs) {
+inline Bitboard& Bitboard::operator|=(const Bitboard& rhs) {
   xmm_ = _mm_or_si128(xmm_, rhs.xmm_);
   return *this;
 }
 
-inline Bitboard& Bitboard::operator^=(Bitboard rhs) {
+inline Bitboard& Bitboard::operator^=(const Bitboard& rhs) {
   xmm_ = _mm_xor_si128(xmm_, rhs.xmm_);
   return *this;
 }
@@ -346,7 +346,7 @@ inline Bitboard Bitboard::operator~() const {
   return Bitboard(_mm_xor_si128(xmm_, _mm_cmpeq_epi8(xmm_, xmm_)));
 }
 
-inline Bitboard Bitboard::andnot(Bitboard rhs) const {
+inline Bitboard Bitboard::andnot(const Bitboard& rhs) const {
   return Bitboard(_mm_andnot_si128(rhs.xmm_, xmm_));
 }
 
@@ -354,7 +354,7 @@ inline bool Bitboard::HasExcessBits() const {
   return test(Bitboard(0xfffffffffffc0000, 0x8000000000000000));
 }
 
-inline Bitboard Bitboard::pawns_attacks_bb(Bitboard pawns, Color c) {
+inline Bitboard Bitboard::pawns_attacks_bb(const Bitboard& pawns, Color c) {
   // 歩が最上段に存在することはありえない（反則になってしまうため）
   assert((pawns & rank_bb(relative_rank(c, kRank1))).none());
   // 最大９個の歩の利きを同時に計算するため、論理シフト演算を用いる
@@ -363,27 +363,27 @@ inline Bitboard Bitboard::pawns_attacks_bb(Bitboard pawns, Color c) {
        : Bitboard(_mm_slli_epi64(pawns.xmm_, 1));
 }
 
-inline Bitboard Bitboard::lance_attacks_bb(Square s, Bitboard occ, Color c) {
-  occ &= magic_numbers_[s].lance_premask;
-  uint64_t index = occ.uint64() >> magic_numbers_[s].lance_shift;
+inline Bitboard Bitboard::lance_attacks_bb(Square s, const Bitboard& occ, Color c) {
+  Bitboard temp = occ & magic_numbers_[s].lance_premask;
+  uint64_t index = temp.uint64() >> magic_numbers_[s].lance_shift;
   return lance_attacks_bb_[s][index] & magic_numbers_[s].lance_postmask[c];
 }
 
-inline Bitboard Bitboard::bishop_attacks_bb(Square s, Bitboard occ) {
+inline Bitboard Bitboard::bishop_attacks_bb(Square s, const Bitboard& occ) {
   uint64_t index = (occ & magic_numbers_[s].bishop_mask).uint64();
   index  *= magic_numbers_[s].bishop_magic;
   index >>= magic_numbers_[s].bishop_shift;
   return magic_numbers_[s].bishop_ptr[index];
 }
 
-inline Bitboard Bitboard::rook_attacks_bb(Square s, Bitboard occ) {
+inline Bitboard Bitboard::rook_attacks_bb(Square s, const Bitboard& occ) {
   uint64_t index = (occ & magic_numbers_[s].rook_mask).uint64();
   index  *= magic_numbers_[s].rook_magic;
   index >>= magic_numbers_[s].rook_shift;
   return magic_numbers_[s].rook_ptr[index];
 }
 
-inline Bitboard Bitboard::queen_attacks_bb(Square s, Bitboard occ) {
+inline Bitboard Bitboard::queen_attacks_bb(Square s, const Bitboard& occ) {
   return bishop_attacks_bb(s, occ) | rook_attacks_bb(s, occ);
 }
 
@@ -434,19 +434,19 @@ inline Bitboard min_attacks_bb(Piece p, Square s) {
 inline Bitboard max_attacks_bb(Piece p, Square s) {
   return Bitboard::max_attacks_bb(p, s);
 }
-inline Bitboard pawns_attacks_bb(Bitboard pawns, Color c) {
+inline Bitboard pawns_attacks_bb(const Bitboard& pawns, Color c) {
   return Bitboard::pawns_attacks_bb(pawns, c);
 }
-inline Bitboard lance_attacks_bb(Square s, Bitboard occ, Color c) {
+inline Bitboard lance_attacks_bb(Square s, const Bitboard& occ, Color c) {
   return Bitboard::lance_attacks_bb(s, occ, c);
 }
-inline Bitboard bishop_attacks_bb(Square s, Bitboard occ) {
+inline Bitboard bishop_attacks_bb(Square s, const Bitboard& occ) {
   return Bitboard::bishop_attacks_bb(s, occ);
 }
-inline Bitboard rook_attacks_bb(Square s, Bitboard occ) {
+inline Bitboard rook_attacks_bb(Square s, const Bitboard& occ) {
   return Bitboard::rook_attacks_bb(s, occ);
 }
-inline Bitboard queen_attacks_bb(Square s, Bitboard occ) {
+inline Bitboard queen_attacks_bb(Square s, const Bitboard& occ) {
   return Bitboard::queen_attacks_bb(s, occ);
 }
 inline Bitboard checker_candidates_bb(Piece p, Square s) {
@@ -487,7 +487,7 @@ inline Bitboard rank_bb(Color c) {
 }
 
 template<Color kC, PieceType kPt>
-inline Bitboard attacks_from(Square from, Bitboard occ) {
+inline Bitboard attacks_from(Square from, const Bitboard& occ) {
   switch (kPt) {
     case kLance:
       return lance_attacks_bb(from, occ, kC);
@@ -505,13 +505,13 @@ inline Bitboard attacks_from(Square from, Bitboard occ) {
 }
 
 template<Color kC, PieceType kPt>
-inline Bitboard attackers_to(Square to, Bitboard occ) {
+inline Bitboard attackers_to(Square to, const Bitboard& occ) {
   return attacks_from<~kC, kPt>(to, occ);
 }
 
-Bitboard AttacksFrom(Piece piece, Square from, Bitboard occ);
+Bitboard AttacksFrom(Piece piece, Square from, const Bitboard& occ);
 
-inline Bitboard AttackersTo(Piece piece, Square from, Bitboard occ) {
+inline Bitboard AttackersTo(Piece piece, Square from, const Bitboard& occ) {
   return AttacksFrom(piece.opponent_piece(), from, occ);
 }
 

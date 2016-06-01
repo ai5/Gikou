@@ -24,6 +24,8 @@
 #include <smmintrin.h> // SSE 4.1
 #include "position.h"
 
+#include "sse_emulae.h" // VC用
+
 ArrayMap<ExtendedBoard::AttackPattern, Square> ExtendedBoard::attack_correction_;
 ArrayMap<ExtendedBoard::AttackPattern, Piece> ExtendedBoard::short_attack_patterns_;
 ArrayMap<ExtendedBoard::Control, Direction> ExtendedBoard::direction_to_increment_;
