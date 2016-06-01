@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 技巧 (Gikou), a USI shogi (Japanese chess) playing engine.
  * Copyright (C) 2016 Yosuke Demura
  * except where otherwise indicated.

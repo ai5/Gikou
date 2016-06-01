@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 技巧 (Gikou), a USI shogi (Japanese chess) playing engine.
  * Copyright (C) 2016 Yosuke Demura
  * except where otherwise indicated.
@@ -72,7 +72,7 @@ class Array<T, kSize, kSize2...> {
 
   typedef typename ValueType<T, kSize, kSize2...>::type value_type;
 
-  constexpr Array() {
+  Array() {
     // 速度低下を防止するため、特にゼロ初期化等は行わない
   }
 

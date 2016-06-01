@@ -1,4 +1,4 @@
-/*
+﻿/*
  * synced_printf.cc
  *
  *  Created on: 2016/05/29
