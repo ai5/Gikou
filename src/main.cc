@@ -76,10 +76,8 @@ int main(int argc, char **argv) {
     // USIプロトコルを用いたエンジンを起動する
     Usi::Start();
   } else {
-#ifndef MINIMUM
     // オプションを解析して、コマンドを実行
     Cli::ExecuteCommand(argc, argv);
-#endif
   }
 
   return 0;

@@ -41,7 +41,6 @@
 #include "usi.h"
 #include "usi_protocol.h"
 
-#if !defined(MINIMUM)
 
 namespace {
 
@@ -77,6 +76,7 @@ void Cli::ExecuteCommand(int argc, char* argv[]) {
   } else if (command == "--bench-mate3") {
     int num_tries = argc >= 3 ? std::atoi(argv[2]) : 1;
     BenchmarkMateSearch(num_tries, 3);
+#if !defined(MINIMUM)
   } else if (command == "--cluster") {
     Cluster cluster;
     cluster.Start();
@@ -85,12 +85,14 @@ void Cli::ExecuteCommand(int argc, char* argv[]) {
   } else if (command == "--consultation") {
     Consultation consultation;
     consultation.Start();
+#endif
   } else if (command == "--create-book") {
     const char* output_file_name = argc >= 3 ? argv[2] : "book.bin";
     CreateBook(output_file_name);
   } else if (command == "--db-stats") {
     const char* event_name = argc >= 3 ? argv[2] : nullptr;
     ComputeStatsOfGameDatabase(event_name);
+#if !defined(MINIMUM)
   } else if (command == "--learn") {
     Learning::LearnEvaluationParameters();
   } else if (command == "--learn-progress") {
@@ -99,6 +101,7 @@ void Cli::ExecuteCommand(int argc, char* argv[]) {
     MoveProbability::Learn();
   } else if (command == "--compute-ratings") {
     ComputePlayerRatings();
+#endif
   } else {
     std::printf("CLI: No such command. %s\n", command.c_str());
   }
@@ -452,4 +455,4 @@ void ComputePlayerRatings() {
 
 } // namespace
 
-#endif // !defined(MINIMUM)
+

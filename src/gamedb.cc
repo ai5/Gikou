@@ -25,7 +25,7 @@
 #include <unordered_set>
 #include "notations.h"
 
-#if !defined(MINIMUM)
+// #if !defined(MINIMUM)
 
 namespace {
 const std::unordered_set<std::string> g_title_matches = {
@@ -83,4 +83,4 @@ START:
   return true;
 }
 
-#endif // !defined(MINIMUM)
+// #endif // !defined(MINIMUM)

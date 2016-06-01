@@ -371,7 +371,7 @@ void Book::ReadFromFile(const char* file_name) {
   std::fclose(file);
 }
 
-#if !defined(MINIMUM)
+// #if !defined(MINIMUM)
 
 void Book::WriteToFile(const char* file_name) const {
   // 1. 保存先のファイルを開く
@@ -672,4 +672,4 @@ Book Book::CreateBook() {
   return book;
 }
 
-#endif // !defined(MINIMUM)
+// #endif // !defined(MINIMUM)
