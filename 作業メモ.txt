@@ -1,0 +1,85 @@
+作業メモ
+
+・文字コード
+/source-charset:utf-8では一部のソースで文字ほげは認識できませんと出るので、
+全部utf-8BOM付きに置き換え
+
+・bitboard
+ Bitboardの値渡しはなぜかエラーになるので,参照渡しにする
+
+・constexpr
+VCのconstexprはいけてない？結構エラーがでる
+
+・unistd.h
+使ってるところは丸ごとコメントアウト
+
+・キャスト
+double -> Depthへのキャストは一度intを経由する？
+
+・__bultin_ほげ
+ビルトイン関数は代替のinlineを用意(builtin.h)
+
+・_mm_movpi64_epi64
+VCだとx86のみ有効になっている
+x64環境だと_mm_set_epi64xで代替？
+
+・標準出力バッファリング
+コメントアウトする
+http://yaneuraou.yaneu.com/2015/12/24/%E6%A8%99%E6%BA%96%E5%85%A5%E5%8A%9B%E3%81%AE%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E3%83%AA%E3%83%B3%E3%82%B0%E5%95%8F%E9%A1%8C/
+
+
+・Gikouで使われているSSE命令
+
+builtin関数
+__builtin_ctz
+__builtin_ctzll
+__builtin_clz
+__builtin_clzll
+__builtin_popcount
+__builtin_popcountll
+
+__builtin_prefetch
+
+SSE命令
+_mm_or_si128 SSE2
+_mm_and_si128 SSE2
+_mm_xor_si128 SSE2
+_mm_andnot_si128 SSE2
+
+_mm_set_epi8   SSE2
+_mm_set1_epi8  SSE2
+_mm_set_epi16  SSE2
+_mm_set1_epi16 SSE2
+_mm_set_epi64x SSE2 
+_mm_setzero_si128 SSE2
+
+_mm_cmpeq_epi8 SSE2
+_mm_cmpgt_epi8 SSE2
+_mm_cmpeq_epi16 SSE2
+
+_mm_testc_si128 SSE4
+_mm_testz_si128 SSE4
+
+_mm_extract_epi64 SSE4 x64
+_mm_insert_epi64 SSE4 x64
+
+_mm_slli_si128 SSE2
+_mm_srli_si128 SSE2
+_mm_slli_epi64 SSE2
+_mm_srli_epi64 SSE2
+_mm_slli_epi16 SSE2
+
+_mm_shuffle_epi8  SSE3
+_mm_movemask_epi8 SSE2
+_mm_cvtepu8_epi16 SSE4
+_mm_min_epu16 SSE4
+_mm_min_epu8  SSE2
+_mm_add_epi16 SSE2
+_mm_add_epi8  SSE2
+_mm_subs_epu8 SSE2
+_mm_sub_epi8  SSE2
+_mm_loadu_si128 SSE2
+_mm_storeu_si128 SSE2
+_mm_movpi64_epi64 SSE2
+
+
