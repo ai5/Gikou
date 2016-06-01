@@ -212,7 +212,8 @@ UsiGoOptions UsiProtocol::ParseGoCommand(std::istringstream& is,
     else if (token == "binc"       ) is >> options.inc[kBlack];
     else if (token == "winc"       ) is >> options.inc[kWhite];
     else if (token == "infinite"   ) options.infinite = true;
-    else if (token == "mate"       ) {
+	else if (token == "depth"      ) is >> options.depth;
+	else if (token == "mate"       ) {
       std::string time;
       is >> time;
       if (time == "infinite") {

@@ -35,6 +35,8 @@
 #include "thinking.h"
 #include "usi_protocol.h"
 
+extern void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking* const thinking);
+
 namespace {
 
 const auto kProgramName = "Gikou 20160601";
@@ -246,7 +248,10 @@ void ExecuteCommand(const std::string& command, Node* const node,
     }
     SYNCED_PRINTF("%s\n", sfen_moves.c_str());
 #endif
-
+  }
+  else if (command == "bench")
+  {
+	  bench_cmd(node, usi_options, thinking);
   } else {
     SYNCED_PRINTF("info string Unsupported Command: %s\n", command.c_str());
   }

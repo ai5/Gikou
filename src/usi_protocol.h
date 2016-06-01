@@ -47,6 +47,8 @@ struct UsiGoOptions {
   /** 通常のαβ探索ではなく、詰み探索を行う場合はtrue */
   bool mate = false;
 
+  int depth = 0;
+
   /**
    * 探索を行う手を列挙された手に制限します（Universal Chess Interface (UCI)を参照）.
    *

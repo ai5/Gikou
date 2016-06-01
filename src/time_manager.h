@@ -92,10 +92,15 @@ class TimeManager : public TaskThread {
     return time_control_->stats;
   }
 
+  int depth() const {
+	  return this->depth_;
+  }
+
  private:
   void Run();
   const UsiOptions& usi_options_;
   bool ponder_ = false;
+  int depth_ = 0;
   std::unique_ptr<TimeControl> time_control_;
   std::atomic_bool stop_{false};
   std::atomic_bool ponderhit_{false};

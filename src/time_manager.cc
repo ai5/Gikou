@@ -39,6 +39,7 @@ void TimeManager::StartTimeManagement(const Position& pos,
   // 今回の設定を保存しておく
   ponder_ = go_options.ponder;
   ponderhit_ = false;
+  depth_ = go_options.depth;
 
   // 時間制御のモードを選択する
   if (   go_options.time[pos.side_to_move()] == 0
