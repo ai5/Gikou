@@ -20,6 +20,7 @@
 #include "position.h"
 
 #include <cstring>
+#include <cctype> // vc isdigit用
 #include <algorithm>
 #include <sstream>
 #include "zobrist.h"

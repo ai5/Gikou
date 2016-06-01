@@ -805,7 +805,7 @@ moves_loop: // 王手がかかっている場合は、ここからスタート�
         if (reduction < 1.0) {
           ss->reduction = kDepthZero;
         } else {
-          ss->reduction = static_cast<Depth>(reduction * double(kOnePly));
+          ss->reduction = static_cast<Depth>(static_cast<int>(reduction * double(kOnePly)));
         }
 
       // LMR
