@@ -255,11 +255,13 @@ void ExecuteCommand(const std::string& command, Node* const node,
 } // namespace
 
 void Usi::Start() {
+#ifndef _MSC_VER
   // 1. 標準入出力のバッファリングをオフにする。
   // これは、「将棋所」の作者により推奨されている。
   // http://www.geocities.jp/shogidokoro/enginecaution.html
   std::setvbuf(stdout, NULL, _IONBF, 0);
   std::setvbuf(stdin, NULL, _IONBF, 0);
+#endif
 
   // 2. 変数を準備する
   CommandQueue command_queue;

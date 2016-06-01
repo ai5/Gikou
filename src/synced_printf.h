@@ -22,6 +22,7 @@ extern std::mutex g_synced_printf_mutex;
 #define SYNCED_PRINTF(...) { \
   g_synced_printf_mutex.lock();      \
   std::printf(__VA_ARGS__);  \
+  std::fflush(stdout); \
   g_synced_printf_mutex.unlock(); }
 
 #endif /* SYNCED_PRINTF_H_ */

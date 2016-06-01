@@ -22,7 +22,10 @@
 #include <iostream>
 #include <sstream>
 #include <fcntl.h>
+#ifdef _MSC_VER
+#else
 #include <unistd.h>
+#endif
 #include "synced_printf.h"
 
 std::string UsiInfo::ToString() const {
@@ -80,14 +83,19 @@ UsiProtocol::UsiProtocol(const char* program_name, const char* author_name)
 void UsiProtocol::Start() {
   // デバッグモード時は、標準エラー出力をログファイルに出力する
 #ifndef NDEBUG
+#ifdef _MSC_VER
+#else
   int stderr_log = creat("stderr_log.txt", 0664);
   dup2(stderr_log, STDERR_FILENO);
 #endif
+#endif
 
+#ifndef _MSC_VER
   // 標準入出力のバッファリングをオフにする。これは、「将棋所」の作者により推奨されている。
   // http://www.geocities.jp/shogidokoro/enginecaution.html
   std::setvbuf(stdout, NULL, _IONBF, 0);
   std::setvbuf(stdin, NULL, _IONBF, 0);
+#endif
 
   for (std::string line; std::getline(std::cin, line); ) {
     std::istringstream is(line);
