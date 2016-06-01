@@ -84,7 +84,7 @@ class BitField {
     }
   };
 
-  constexpr BitField() {
+  BitField() {
     // 速度低下を防止するため、特にゼロ初期化等は行わない
   }
 

@@ -85,7 +85,7 @@ class ArrayMap<T, Key, Key2...> {
 
   typedef typename ValueType<T, Key, Key2...>::type value_type;
 
-  constexpr ArrayMap() {
+  ArrayMap() {
     // 速度低下を防止するため、特にゼロ初期化等は行わない
   }
 

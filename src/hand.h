@@ -207,16 +207,33 @@ class Hand {
   }
 
   /** 各駒の枚数を保存するのに使うビットの範囲 */
-  static constexpr Key keys_[8] = {
-      Key( 0, 32), // ダミー
-      Key( 0,  5), // 歩
-      Key( 6,  9), // 香
-      Key(10, 13), // 桂
-      Key(14, 17), // 銀
-      Key(18, 21), // 金
-      Key(22, 25), // 角
-      Key(26, 29), // 飛
+#ifdef _MSC_VER
+  // VCではコンパイルエラーになる
+  static const Key keys_[8];
+  enum BorrowMask : uint32_t {
+	  kBorrowPawn = Key(0, 5).mask + Key(0, 5).first_bit,
+	  kBorrowLance = Key(6, 9).mask + Key(6, 9).first_bit,
+	  kBorrowKnight = Key(10, 13).mask + Key(10, 13).first_bit,
+	  kBorrowSilver = Key(14, 17).mask + Key(14, 17).first_bit,
+	  kBorrowGold = Key(18, 21).mask + Key(18, 21).first_bit,
+	  kBorrowBishop = Key(22, 25).mask + Key(22, 25).first_bit,
+	  kBorrowRook = Key(26, 29).mask + Key(26, 29).first_bit,
+	  kBorrowMask = kBorrowPawn | kBorrowLance | kBorrowKnight | kBorrowSilver
+	  | kBorrowGold | kBorrowBishop | kBorrowRook
   };
+#else
+  static constexpr Key keys_[8] = {
+	  Key(0, 32), // ダミー
+	  Key(0,  5), // 歩
+	  Key(6,  9), // 香
+	  Key(10, 13), // 桂
+	  Key(14, 17), // 銀
+	  Key(18, 21), // 金
+	  Key(22, 25), // 角
+	  Key(26, 29), // 飛
+  };
+
+  
   static_assert(keys_[kPawn  ].mask == 0x0000001f, "");
   static_assert(keys_[kLance ].mask == 0x000001c0, "");
   static_assert(keys_[kKnight].mask == 0x00001c00, "");
@@ -236,7 +253,7 @@ class Hand {
     kBorrowMask   = kBorrowPawn | kBorrowLance | kBorrowKnight | kBorrowSilver
                   | kBorrowGold | kBorrowBishop | kBorrowRook
   };
-
+#endif
   BitField<uint32_t> hand_;
 };
 

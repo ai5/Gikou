@@ -21,7 +21,22 @@
 
 #include <cctype>
 
+#ifdef _MSC_VER
+const Hand::Key Hand::keys_[8] =
+{
+	Hand::Key(0, 32), // ダミー
+	Hand::Key(0, 5), // 歩
+	Hand::Key(6, 9), // 香
+	Hand::Key(10, 13), // 桂
+	Hand::Key(14, 17), // 銀
+	Hand::Key(18, 21), // 金
+	Hand::Key(22, 25), // 角
+	Hand::Key(26, 29), // 飛
+};
+
+#else
 constexpr Hand::Key Hand::keys_[8];
+#endif
 
 Hand& Hand::operator|=(Hand rhs) {
   // 1. 除算命令を用いて、左辺の持ち駒の方が多い駒種を特定する
