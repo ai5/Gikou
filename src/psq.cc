@@ -222,7 +222,7 @@ bool PsqList::IsOk() const {
     for (PieceType pt : Piece::all_hand_types()) {
       for (int num = 1; num <= hand_[c].count(pt); ++num) {
         // 持ち駒の要素がリストに含まれているか探す
-        auto iter = std::find_if(begin(), end(), [&](PsqPair item) {
+        auto iter = std::find_if(begin(), end(), [&](const PsqPair& item) {
           return item.black() == PsqIndex::OfHand(c, pt, num);
         });
         // a. あるべき要素がリストになかった
@@ -254,7 +254,7 @@ bool PsqList::TwoListsHaveSameItems(const PsqList& list1, const PsqList& list2) 
 
   // ローカル変数にコピーしたうえで、ソートする
   Array<PsqPair, kMaxSize> list_l = list1.list_, list_r = list2.list_;
-  auto less = [](PsqPair lhs, PsqPair rhs) {
+  auto less = [](const PsqPair& lhs, const PsqPair& rhs) {
     return lhs.black() < rhs.black();
   };
   size_t size = list_l.size();

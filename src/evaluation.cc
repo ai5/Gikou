@@ -116,7 +116,7 @@ inline PackedScore FlipScores2x2(PackedScore s) {
 /**
  * 特定の１駒について、位置評価の合計値を計算します.
  */
-inline EvalDetail SumPositionalScore(const PsqPair psq, const PsqList& list,
+inline EvalDetail SumPositionalScore(const PsqPair& psq, const PsqList& list,
                                      const Position& pos) {
   // 1. KP
   Square bk = pos.king_square(kBlack);
@@ -141,7 +141,7 @@ inline EvalDetail SumPositionalScore(const PsqPair psq, const PsqList& list,
 /**
  * 特定の２駒について、位置評価の合計値を計算します.
  */
-inline EvalDetail SumPositionalScore(const PsqPair psq1, const PsqPair psq2,
+inline EvalDetail SumPositionalScore(const PsqPair& psq1, const PsqPair& psq2,
                                      const PsqList& list, const Position& pos) {
   // 1. KP
   Square bk = pos.king_square(kBlack);
