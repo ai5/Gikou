@@ -8,9 +8,9 @@
 
 ## 技巧のダウンロード
 
-技巧（Windows版）は、以下のリンクから入手可能です。
+技巧（Windows版）は、以下のリンクから入手できます。
 皆様の将棋のご検討などにお役立ていただけますと幸いです。
-- ダウンロード: https://drive.google.com/uc?id=0B98nJjsRgJHNT04tVXVpUF9RZDA&export=download
+- ダウンロード場所: https://github.com/gikou-official/Gikou/releases
 
 技巧の動作環境は、以下のとおりです。
 （新しい技術を使っている関係で、古いパソコンでは動作しない場合もございます。）
@@ -30,7 +30,7 @@
 設定の方法など、詳しい使い方については、将棋所 や ShogiGUI のホームページをご覧ください。
 - 将棋所 http://www.geocities.jp/shogidokoro/
 - ShogiGUI https://sites.google.com/site/shogixyz/home/shogigui
- 
+
 ## 開発者の皆様へ
 
 現在のところ、技巧の推奨開発環境は、以下のとおりです。
@@ -46,6 +46,24 @@
 - 世界コンピュータ将棋選手権PR文書（http://www2.computer-shogi.org/wcsc26/appeal/Gikou/gikou_appeal_wcsc26_ver3.pdf）
 
 バグ、不具合、コメントの誤字脱字等を発見をされましたら、ご報告いただけますと幸いです。
+
+## コンパイルの方法
+
+技巧をソースコードからコンパイルする場合は、以下のようにコマンドを実行してください。
+
+**Windowsの場合**
+
+```
+cd Gikou
+make gikou
+```
+
+**Mac / Linuxの場合**
+
+```
+cd Gikou
+make release
+```
 
 ## 謝辞
 
