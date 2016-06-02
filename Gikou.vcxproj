@@ -162,7 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bench.cpp" />
+    <ClCompile Include="src\bench.cc" />
     <ClCompile Include="src\bitboard.cc" />
     <ClCompile Include="src\book.cc" />
     <ClCompile Include="src\cli.cc" />

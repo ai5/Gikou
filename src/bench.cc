@@ -1,5 +1,5 @@
-/**
- YaneuraOu���玝���Ă����x���`�R�}���h
+﻿/**
+ YaneuraOuから持ってきたベンチコマンド
 */
 
 #include <vector>
@@ -11,21 +11,21 @@
 #include "usi_protocol.h"
 #include "misc.h"
 // ----------------------------------
-//  USI�g���R�}���h "bench"(�x���`�}�[�N)
+//  USI拡張コマンド "bench"(ベンチマーク)
 // ----------------------------------
 
-// benchmark�p�f�t�H���g�̋ǖʏW
-// ����𑝂₷�Ȃ�A���̂ق��� fens.assign �̂Ƃ���̋ǖʐ������₷���ƁB
+// benchmark用デフォルトの局面集
+// これを増やすなら、下のほうの fens.assign のところの局面数も増やすこと。
 static const char* BenchSfen[] = {
 
-	// �ǂ߂Γǂނقǌ�舫���悤�ȋǖ�
+	// 読めば読むほど後手悪いような局面
 	"l4S2l/4g1gs1/5p1p1/pr2N1pkp/4Gn3/PP3PPPP/2GPP4/1K7/L3r+s2L w BS2N5Pb 1",
 
-	// 57����͋l�݁A�݂����ȁB
-	// �ǂ߂Γǂނقǐ�肪�������Ƃ��킩���Ă���ǖʁB
+	// 57同銀は詰み、みたいな。
+	// 読めば読むほど先手が悪いことがわかってくる局面。
 	"6n1l/2+S1k4/2lp4p/1np1B2b1/3PP4/1N1S3rP/1P2+pPP+p1/1p1G5/3KG2r1 b GSN2L4Pgs2p 1",
 
-	// �w���萶���Ղ�̋ǖ�
+	// 指し手生成祭りの局面
 	// cf. http://d.hatena.ne.jp/ak11/20110508/p1
 	"l6nl/5+P1gk/2np1S3/p1p4Pp/3P2Sp1/1PPb2P1P/P5GS1/R8/LN4bKL w RGgsn5p 1",
 };
@@ -56,19 +56,19 @@ void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking* const 
 		thinking->StartThinking(*node, go_options);
 		
 		/*
-		// �T������nps���\������邪�A����͂���global��Timer�Ɋ�Â��̂ŒT�����ƂɃ��Z�b�g���s�Ȃ��悤�ɂ���B
+		// 探索時にnpsが表示されるが、それはこのglobalなTimerに基づくので探索ごとにリセットを行なうようにする。
 		Time.reset();
 
 		Threads.start_thinking(pos, limits, st);
-		Threads.main()->wait_for_search_finished(); // �T���̏I����҂B
+		Threads.main()->wait_for_search_finished(); // 探索の終了を待つ。
 
 		nodes += Threads.main()->rootPos.nodes_searched();
 		*/
-		// �m�[�h���̎������悤�킩���̂�NPS�͂Ȃ�
+		// ノード数の取り方がようわからんのでNPSはなし
 	}
 
-	auto elapsed = time.elapsed() + 1; // 0���Z�̉���̂���
+	auto elapsed = time.elapsed() + 1; // 0除算の回避のため
 
-	// �o�ߎ��Ԃ̂ݕ\��
+	// 経過時間のみ表示
 	SYNCED_PRINTF("time = %dms\n", elapsed);
 }

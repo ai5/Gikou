@@ -45,6 +45,21 @@ info depth 15 seldepth 25 time 5706 nodes 1965425 nps 344448 hashfull 151 score
 cp -3196 multipv 1 pv G*3c 4c3d+ S*2h 9h2h 3i2h+ 2i2h R*4h G*3h 4h4b+ 3d3c 2b3c
 B*3d N*2c 2d2c+ 3c2c 3d2c+ 1b2c S*3d 2c3b N*4d 6f4d
 
+・mingw版のベンチ
+time = 9496ms
+1/3
+info depth 15 seldepth 22 time 1841 nodes 826225 nps 448791 hashfull 33 score cp
+ 321 multipv 1 pv 8d7d P*7f B*6h S*7h 5i7i+ 8h8g 6h7g+ 8g7g G*6h B*8g 6h7h 7g6f
+7h7g 4a3b+ 7g8g G*2e 2d1c 2e1d 1c1d
+2/3
+info depth 15 seldepth 24 time 3027 nodes 1293965 nps 427474 hashfull 85 score c
+p -454 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 5e6e P*6f 6e7e 7c7d 7e8e 4e6c+ 8e9f 7d8d
+3/3
+info depth 15 seldepth 25 time 4586 nodes 2294307 nps 500284 hashfull 163 score
+cp -2729 multipv 1 pv G*3c 4b3b S*2h 9h2h 3i2h+ 2i2h R*4h G*3h 4h4c+ 3b2b 1b2b S
+*2c 3c2c 2d2c+ 2b2c G*3d 4c3d 3e3d 2c3d R*3a G*3c G*3e 3d4c 3a4a+ P*4b
+
 
 ・Gikouで使われているSSE命令
 

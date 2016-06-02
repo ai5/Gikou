@@ -4,7 +4,7 @@
 CXX       = g++
 CXXFLAGS  = -std=c++11 -Wall -Wextra -Wcast-qual -fno-exceptions -fno-rtti \
             -pedantic -Wno-long-long -msse4.2 -D__STDC_CONSTANT_MACROS -fopenmp
-INCLUDES  =
+INCLUDES  = -I.
 LIBRARIES = -lpthread
 
 #
