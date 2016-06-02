@@ -146,7 +146,7 @@ Hand DisproofPieces::AtLeaf(const Position& pos) {
 
   // 攻め方に持ち駒を渡しても、攻め方の王手の数が増えない場合は、
   // 受け方は、攻め方に対して、その駒を渡すことができる
-  auto give_pieces = [&](PieceType pt, Bitboard target) {
+  auto give_pieces = [&](PieceType pt, const Bitboard& target) {
     if ((target.andnot(occ)).none()) disproof_pieces.reset(pt);
   };
   give_pieces(kPawn  , step_attacks_bb(Piece(defence_side, kPawn  ), ksq));

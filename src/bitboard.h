@@ -21,11 +21,17 @@
 #define BITBOARD_H_
 
 #include <string>
+#ifdef USE_SSE42
 #include <smmintrin.h> // SSE 4.1
+#else
+#include <emmintrin.h> // SSE2
+#endif
 #include "common/array.h"
 #include "common/arraymap.h"
 #include "piece.h"
 #include "square.h"
+
+#include "sse_emulae.h"
 
 /**
  * ビットボードを実装したクラスです.
@@ -514,5 +520,29 @@ Bitboard AttacksFrom(Piece piece, Square from, const Bitboard& occ);
 inline Bitboard AttackersTo(Piece piece, Square from, const Bitboard& occ) {
   return AttacksFrom(piece.opponent_piece(), from, occ);
 }
+
+#if !defined(_WIN64) && defined(WIN32)
+// bitboardを使ってるやつのアロケーター
+template<class T>
+class mm_allocator : public std::allocator<T> {
+public:
+	mm_allocator() { }
+	mm_allocator(const mm_allocator& x) { }
+
+	template<class U>
+	mm_allocator(const mm_allocator<U>& x) { }
+
+	pointer allocate(size_type n, const_pointer hint = 0) {
+		return (pointer)_mm_malloc(n * sizeof(T), 16);
+	}
+
+	void deallocate(pointer ptr, size_type n) {
+		_mm_free(ptr);
+	}
+
+	template<class U>
+	struct rebind { typedef mm_allocator<U> other; };
+};
+#endif
 
 #endif /* BITBOARD_H_ */

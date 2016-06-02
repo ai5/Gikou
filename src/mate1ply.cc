@@ -138,7 +138,7 @@ template<Color kColor, PieceType kPt, bool kIsPromotion>
 FORCE_INLINE bool TestMoveGivesMate(const Square from, const Square to,
                                     const Position& pos,
                                     const DirectionSet attack1,
-                                    const Bitboard attacks) {
+                                    const Bitboard& attacks) {
   constexpr PieceType kPtAfterMove = kIsPromotion ? GetPromotedType(kPt) : kPt;
   const Square ksq = pos.king_square(~kColor);
   const Bitboard occ = pos.pieces().andnot(square_bb(ksq));
@@ -238,7 +238,7 @@ FORCE_INLINE bool TestMoveGivesMate(const Square from, const Square to,
  */
 template<Color kColor, PieceType kPt>
 FORCE_INLINE bool FindMateMove(const Position& pos, const DirectionSet attack1,
-                               Bitboard move_targets, Move* const mate_move) {
+                               const Bitboard& move_targets, Move* const mate_move) {
   static_assert(kPt <= kRook || kHorse <= kPt, "");
   assert(mate_move != nullptr);
 

@@ -1182,7 +1182,7 @@ PositionInfo::PositionInfo(const Position& pos, const HistoryStats& history_stat
   attacked_squares = pos.extended_board().GetControlledSquares(~stm);
   defended_squares = pos.extended_board().GetControlledSquares(stm);
 
-  auto find_most_valuable_pieces = [&](Bitboard pieces) -> Bitboard {
+  auto find_most_valuable_pieces = [&](const Bitboard& pieces) -> Bitboard {
     Score best_value = kScoreZero;
     PieceType best_type = kNoPieceType;
     pieces.ForEach([&](Square sq) {

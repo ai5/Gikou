@@ -38,8 +38,19 @@
 extern void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking* const thinking);
 
 namespace {
+#ifdef _WIN64
+ #define OS
+#else
+#define OS " 32bit"
+#endif
 
-const auto kProgramName = "Gikou 20160601";
+#ifdef USE_SSE42
+#define SSE
+#else
+#define SSE " SSE2"
+#endif
+
+const auto kProgramName = "Gikou 20160601" OS SSE;
 const auto kAuthorName  = "Yosuke Demura";
 const auto kBookFile = "book.bin";
 

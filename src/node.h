@@ -178,7 +178,11 @@ class Node : public Position {
 
   Key64 ComputeKey(Move move) const;
 
+#if !defined(_WIN64) && defined(WIN32)
+  std::vector<Stack, mm_allocator<Stack>> stack_;
+#else
   std::vector<Stack> stack_;
+#endif
   PsqList psq_list_;
 };
 

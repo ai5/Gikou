@@ -112,7 +112,7 @@ bool Position::operator!=(const Position& rhs) const {
   return !(*this == rhs);
 }
 
-Bitboard Position::AttackersTo(Square to, Bitboard occ) const {
+Bitboard Position::AttackersTo(Square to, const Bitboard& occ) const {
   Bitboard hdk = pieces(kHorse, kDragon, kKing);
   Bitboard rd  = pieces(kRook, kDragon);
   Bitboard bh  = pieces(kBishop, kHorse);
@@ -131,14 +131,14 @@ Bitboard Position::AttackersTo(Square to, Bitboard occ) const {
        | (attackers_to<kWhite, kPawn  >(to, occ) & pieces(kWhitePawn  ));
 }
 
-Bitboard Position::SlidersAttackingTo(Square to, Bitboard occ) const {
+Bitboard Position::SlidersAttackingTo(Square to, const Bitboard& occ) const {
   return (rook_attacks_bb(to, occ) & pieces(kRook, kDragon))
        | (bishop_attacks_bb(to, occ) & pieces(kBishop, kHorse))
        | (lance_attacks_bb(to, occ, kWhite) & pieces(kBlackLance))
        | (lance_attacks_bb(to, occ, kBlack) & pieces(kWhiteLance));
 }
 
-Bitboard Position::SlidersAttackingTo(Square to, Bitboard occ, Color c) const {
+Bitboard Position::SlidersAttackingTo(Square to, const Bitboard& occ, Color c) const {
   Bitboard attackers = (rook_attacks_bb(to, occ) & pieces(kRook, kDragon))
                      | (bishop_attacks_bb(to, occ) & pieces(kBishop, kHorse))
                      | (lance_attacks_bb(to, occ, ~c) & pieces(kLance));

@@ -21,7 +21,13 @@
 
 #include <vector>
 #include <utility>
+
+#ifdef USE_SSE42
 #include <smmintrin.h> // SSE 4.1
+#else
+#include <emmintrin.h> // SSE 2
+#endif
+
 #include "position.h"
 
 #include "sse_emulae.h" // VC用

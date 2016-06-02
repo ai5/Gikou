@@ -26,7 +26,7 @@
 namespace {
 
 template<PieceType PT>
-inline bool AttackerIsFound(const Position& pos, Bitboard attackers,
+inline bool AttackerIsFound(const Position& pos, const Bitboard& attackers,
                             Square* const attacker_sq) {
   assert(attacker_sq != nullptr);
   if (attackers.test(pos.pieces(PT))) {
@@ -36,7 +36,7 @@ inline bool AttackerIsFound(const Position& pos, Bitboard attackers,
   return false;
 }
 
-PieceType FindLeastValuableAttacker(const Position& pos, Bitboard pieces,
+PieceType FindLeastValuableAttacker(const Position& pos, const Bitboard& pieces,
                                     Square* const attacker_sq) {
   assert(pieces.any());
   if (AttackerIsFound<kPawn   >(pos, pieces, attacker_sq)) return kPawn   ;

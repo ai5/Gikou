@@ -223,27 +223,27 @@ class Position {
   /**
    * 指定されたマスに利きを付けている駒を求めます.
    */
-  template<Color kC> Bitboard AttackersTo(Square s , Bitboard occ) const;
+  template<Color kC> Bitboard AttackersTo(Square s , const Bitboard& occ) const;
 
   /**
    * 指定されたマスに利きを付けている駒を求めます.
    */
-  Bitboard AttackersTo(Square s, Bitboard occ) const;
+  Bitboard AttackersTo(Square s, const Bitboard& occ) const;
 
   /**
    * 指定されたマスに利きを付けている駒を求めます.
    */
-  Bitboard AttackersTo(Square s, Bitboard occ, Color c) const;
+  Bitboard AttackersTo(Square s, const Bitboard& occ, Color c) const;
 
   /**
    * 指定されたマスに利きを付けている飛び駒を求めます.
    */
-  Bitboard SlidersAttackingTo(Square s, Bitboard occ) const;
+  Bitboard SlidersAttackingTo(Square s, const Bitboard& occ) const;
 
   /**
    * 指定されたマスに利きを付けている飛び駒を求めます.
    */
-  Bitboard SlidersAttackingTo(Square s, Bitboard occ, Color c) const;
+  Bitboard SlidersAttackingTo(Square s, const Bitboard& occ, Color c) const;
 
   /**
    * 現局面において、王手がかかっている場合は、trueを返します.
@@ -473,7 +473,11 @@ class Position {
   ArrayMap<Hand, Color> hand_;
   ArrayMap<Square, Color> king_square_{kSquareNone, kSquareNone};
 
+#if !defined(_WIN64) && defined(WIN32)
+  std::vector<StateInfo, mm_allocator<StateInfo>> state_infos_;
+#else
   std::vector<StateInfo> state_infos_;
+#endif
   std::vector<StateInfo>::iterator current_state_info_;
 
   uint64_t nodes_searched_ = 0;
@@ -604,7 +608,7 @@ inline Bitboard Position::AttackersTo(Square s) const {
 }
 
 template<Color kC>
-Bitboard Position::AttackersTo(Square to, Bitboard occ) const {
+Bitboard Position::AttackersTo(Square to, const Bitboard& occ) const {
   Bitboard hdk = pieces(kHorse, kDragon, kKing);
   Bitboard rd  = pieces(kRook, kDragon);
   Bitboard bh  = pieces(kBishop, kHorse);
@@ -619,7 +623,7 @@ Bitboard Position::AttackersTo(Square to, Bitboard occ) const {
   return attackers & pieces(kC);
 }
 
-inline Bitboard Position::AttackersTo(Square s, Bitboard occ, Color c) const {
+inline Bitboard Position::AttackersTo(Square s, const Bitboard& occ, Color c) const {
   return AttackersTo(s, occ) & color_bb_[c];
 }
 

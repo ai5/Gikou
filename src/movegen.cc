@@ -60,7 +60,7 @@ template<Color kColor> struct Generator<kAdjacentChecks, kColor> {
  * 移動手のうち、成る手を生成します.
  */
 template<Color kColor, PieceType kPt>
-inline ExtMove* GenPromotions(Square from, Bitboard to_bb, ExtMove* stack) {
+inline ExtMove* GenPromotions(Square from, const Bitboard& to_bb, ExtMove* stack) {
   assert(stack != nullptr);
   to_bb.ForEach([&](Square to) {
     (stack++)->move = Move(Piece(kColor, kPt), from, to, true);
@@ -72,7 +72,7 @@ inline ExtMove* GenPromotions(Square from, Bitboard to_bb, ExtMove* stack) {
  * 移動手のうち、成らない手を生成します。
  */
 template<Color kColor, PieceType kPt>
-inline ExtMove* GenNonPromotions(Square from, Bitboard to_bb, ExtMove* stack) {
+inline ExtMove* GenNonPromotions(Square from, const Bitboard& to_bb, ExtMove* stack) {
   assert(stack != nullptr);
   to_bb.ForEach([&](Square to) {
     (stack++)->move = Move(Piece(kColor, kPt), from, to);
@@ -81,7 +81,7 @@ inline ExtMove* GenNonPromotions(Square from, Bitboard to_bb, ExtMove* stack) {
 }
 
 template<Color kColor, PieceType kPt>
-inline ExtMove* GenNonPromotions(const Position& pos, Bitboard target,
+inline ExtMove* GenNonPromotions(const Position& pos, const Bitboard& target,
                                  ExtMove* stack) {
   assert(stack != nullptr);
   pos.pieces(kColor, kPt).ForEach([&](Square from) {
@@ -96,7 +96,7 @@ inline ExtMove* GenNonPromotions(const Position& pos, Bitboard target,
  * この関数は、「打つ手」および「玉を動かす手」を生成しないことに注意してください。
  */
 template<Color C>
-ExtMove* GenMoves(const Position& pos, const Bitboard target, ExtMove* stack) {
+ExtMove* GenMoves(const Position& pos, const Bitboard& target, ExtMove* stack) {
   assert(stack != nullptr);
 
   const Bitboard rank1_3 = rank_bb<C, 1, 3>();
@@ -274,7 +274,7 @@ ExtMove* GenMovesTo(const Position& pos, const Square to, ExtMove* stack) {
  * GenDrops()関数の実装で使用されている関数です。
  */
 template<int kNumPieces, typename T>
-inline ExtMove* GenManyDrops(const T& pieces, Bitboard to_bb, ExtMove* stack) {
+inline ExtMove* GenManyDrops(const T& pieces, const Bitboard& to_bb, ExtMove* stack) {
   static_assert(0 < kNumPieces && kNumPieces <= 6, "");
   assert(stack != nullptr);
   assert(!to_bb.HasExcessBits());
@@ -296,18 +296,18 @@ inline ExtMove* GenManyDrops(const T& pieces, Bitboard to_bb, ExtMove* stack) {
  * 駒打を生成します.
  */
 template<Color kColor>
-ExtMove* GenDrops(const Position& pos, Bitboard target, ExtMove* stack) {
+ExtMove* GenDrops(const Position& pos, const Bitboard& target, ExtMove* stack) {
   assert(stack != nullptr);
   assert(!target.HasExcessBits());
 
   const Hand hand = pos.hand(kColor);
-  target = target.andnot(pos.pieces()) & rank_bb<1, 9>();
+  Bitboard target_tmp = target.andnot(pos.pieces()) & rank_bb<1, 9>();
 
   // Step 1. 歩を打つ手を生成する
   if (hand.has(kPawn)) {
     const Bitboard rank2_9 = rank_bb<kColor, 2, 9>();
     Bitboard pawn_files = Bitboard::FileFill(pos.pieces(kColor, kPawn));
-    Bitboard to_bb = (target & rank2_9).andnot(pawn_files);
+    Bitboard to_bb = (target_tmp & rank2_9).andnot(pawn_files);
     to_bb.Serialize([&](Square to) {
       (stack++)->move = Move(kColor, kPawn, to);
     });
@@ -481,7 +481,7 @@ inline ExtMove* GenDropChecks(const Position& pos, const Square king_square,
  */
 template<Color kColor, PieceType kPt>
 inline ExtMove* GenDiscoveredChecks(const Position& pos,
-                                    const Bitboard dc_candidates,
+                                    const Bitboard& dc_candidates,
                                     ExtMove* stack) {
   constexpr Piece kPiece(kColor, kPt);
   Bitboard pieces = kPt == kGold ? pos.golds(kColor) : pos.pieces(kColor, kPt);
@@ -611,7 +611,7 @@ inline ExtMove* GenQuietDirectChecks(const Position& pos,
  */
 template<Color kColor, PieceType kPt>
 inline ExtMove* GenQuietDiscoveredChecks(const Position& pos,
-                                         const Bitboard dc_candidates,
+                                         const Bitboard& dc_candidates,
                                          ExtMove* stack) {
   constexpr Piece kPiece(kColor, kPt);
   Bitboard pieces = kPt == kGold ? pos.golds(kColor) : pos.pieces(kColor, kPt);
