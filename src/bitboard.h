@@ -278,7 +278,7 @@ inline Bitboard& Bitboard::insert64(uint64_t q) {
 }
 
 template<typename Consumer>
-inline void Bitboard::ForEach(Consumer function) const {
+FORCE_INLINE void Bitboard::ForEach(Consumer function) const {
   Bitboard clone = *this;
   while (clone.any()) {
     Square s = clone.pop_first_one();
@@ -287,7 +287,7 @@ inline void Bitboard::ForEach(Consumer function) const {
 }
 
 template<typename Consumer>
-inline void Bitboard::Serialize(Consumer function) const {
+FORCE_INLINE void Bitboard::Serialize(Consumer function) const {
   for (uint64_t q0 = extract64<0>(); q0; q0 = bitop::reset_first_bit(q0)) {
     function(Square(bitop::bsf64(q0)));
   }
@@ -296,7 +296,7 @@ inline void Bitboard::Serialize(Consumer function) const {
   }
 }
 
-inline DirectionSet Bitboard::neighborhood8(Square s) const {
+FORCE_INLINE DirectionSet Bitboard::neighborhood8(Square s) const {
   Bitboard neighborhoods_bb = *this & step_attacks_bb(kBlackKing, s);
   Bitboard duplicated = neighborhoods_bb | (neighborhoods_bb >> 36);
   uint64_t bits = (duplicated.extract64<0>() << 1) * eight_neighborhoods_magics_[s];

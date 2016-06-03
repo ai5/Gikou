@@ -34,7 +34,7 @@
 # define FORCE_INLINE inline __attribute__((always_inline))
 # define UNROLL_LOOPS __attribute__((optimize("unroll-loops")))
 #else
-# define FORCE_INLINE inline
+# define FORCE_INLINE __forceinline
 # define UNROLL_LOOPS
 #endif
 
