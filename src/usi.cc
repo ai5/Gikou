@@ -46,6 +46,8 @@ namespace {
 
 #ifdef USE_SSE42
 #define SSE
+#elif USE_SSE3
+#define SSE " SSE3"
 #else
 #define SSE " SSE2"
 #endif
