@@ -115,9 +115,10 @@ FischerTimeControl::FischerTimeControl(const Position& position,
   // 最小思考時間
   int64_t min_thinking_time = usi_options_["MinThinkingTime"];
   minimum_time_ = std::max(base_time_ / kMinRatio, min_thinking_time) - byoyomi_margin_;
-
+#ifndef __ANDROID__
   SYNCED_PRINTF("info string Time Control: base=%" PRIu64 " max=%" PRIu64 " min=%" PRIu64 "\n",
                 base_time_, maximum_time_, minimum_time_);
+#endif
 }
 
 ByoyomiTimeControl::ByoyomiTimeControl(const Position& position,
@@ -139,9 +140,10 @@ ByoyomiTimeControl::ByoyomiTimeControl(const Position& position,
   // 最小思考時間
   int64_t min_thinking_time = usi_options_["MinThinkingTime"];
   minimum_time_ = std::max(base_time_ / kMinRatio, min_thinking_time) - byoyomi_margin_;
-
+#ifndef __ANDROID__
   SYNCED_PRINTF("info string Time Control: base=%" PRIu64 " max=%" PRIu64 " min=%" PRIu64 "\n",
                 base_time_, maximum_time_, minimum_time_);
+#endif
 }
 
 SuddenDeathTimeControl::SuddenDeathTimeControl(const Position& position,
@@ -165,6 +167,8 @@ SuddenDeathTimeControl::SuddenDeathTimeControl(const Position& position,
   int64_t min_thinking_time = usi_options_["MinThinkingTime"];
   minimum_time_ = std::max(base_time_ / kMinRatio, min_thinking_time) - byoyomi_margin_;
 
+#ifndef __ANDROID__
   SYNCED_PRINTF("info string Time Control: base=%" PRIu64 " max=%" PRIu64 " min=%" PRIu64 "\n",
                 base_time_, maximum_time_, minimum_time_);
+#endif
 }

@@ -21,7 +21,13 @@
 #define EXTENDED_BOARD_H_
 
 #include <cstring>
+
+#if defined(__arm__)
+#include "SSE2NEON.h"
+#else
 #include <tmmintrin.h> // SSSE 3 (Supplementary Streaming SIMD Extensions 3)
+#endif
+
 #include "common/number.h"
 #include "bitboard.h"
 #include "move.h"

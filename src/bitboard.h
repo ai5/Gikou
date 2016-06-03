@@ -21,11 +21,15 @@
 #define BITBOARD_H_
 
 #include <string>
-#ifdef USE_SSE42
+
+#if defined(__arm__)
+#include "SSE2NEON.h"
+#elif defined(USE_SSE42)
 #include <smmintrin.h> // SSE 4.1
 #else
 #include <emmintrin.h> // SSE2
 #endif
+
 #include "common/array.h"
 #include "common/arraymap.h"
 #include "piece.h"
@@ -296,7 +300,7 @@ FORCE_INLINE void Bitboard::Serialize(Consumer function) const {
   }
 }
 
-FORCE_INLINE DirectionSet Bitboard::neighborhood8(Square s) const {
+inline DirectionSet Bitboard::neighborhood8(Square s) const {
   Bitboard neighborhoods_bb = *this & step_attacks_bb(kBlackKing, s);
   Bitboard duplicated = neighborhoods_bb | (neighborhoods_bb >> 36);
   uint64_t bits = (duplicated.extract64<0>() << 1) * eight_neighborhoods_magics_[s];

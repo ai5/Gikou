@@ -26,6 +26,11 @@
 #include "common/sequence.h"
 #include "hand.h"
 #include "move.h"
+
+#ifdef __arm__
+#include "SSE2NEON.h"
+#endif
+
 class Position;
 
 /**

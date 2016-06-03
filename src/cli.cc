@@ -393,6 +393,7 @@ void ComputeAllPossibleQuietMoves() {
  * 棋譜DBファイルに登場するプレイヤーのレーティングを計算します.
  */
 void ComputePlayerRatings() {
+#ifndef __ANDROID__
   // 1. 棋譜DBファイルを開く
   std::ifstream game_db_file(GameDatabase::kDefaultDatabaseFile);
   GameDatabase game_db(game_db_file);
@@ -451,6 +452,7 @@ void ComputePlayerRatings() {
   for (const Pair& pair : results) {
     std::printf("%s %" PRId64 "\n", pair.first.c_str(), pair.second);
   }
+#endif
 }
 
 } // namespace

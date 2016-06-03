@@ -45,7 +45,8 @@ class SearchThread {
   void SetRootNode(const Node& node);
   void StartSearching();
   void WaitUntilSearchIsFinished();
-
+	
+#if defined(_WIN32) && !defined(_WIN64)
   static void* operator new(std::size_t sz) {
 	  return _mm_malloc(sz, 16);
   }
@@ -54,6 +55,7 @@ class SearchThread {
   {
 	  _mm_free(ptr);
   }
+#endif
 
  private:
   friend class ThreadManager;

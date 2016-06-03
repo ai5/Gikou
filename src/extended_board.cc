@@ -22,10 +22,12 @@
 #include <vector>
 #include <utility>
 
-#ifdef USE_SSE42
+#if defined(__arm__)
+#include "SSE2NEON.h"
+#elif defined(USE_SSE42)
 #include <smmintrin.h> // SSE 4.1
 #else
-#include <emmintrin.h> // SSE 2
+#include <emmintrin.h> // SSE2
 #endif
 
 #include "position.h"
