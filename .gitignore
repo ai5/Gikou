@@ -197,3 +197,10 @@ $RECYCLE.BIN/
 # =========================
 *.opendb
 *.filters
+Release*/
+book.bin
+params.bin
+probability.bin
+progress.bin
+*.VC.*
+libs

@@ -34,12 +34,8 @@ __inline __m128i _mm_movpi64_epi64(__m64 __A)
 #ifdef USE_SSE42
 
 #ifndef _WIN64
- #ifdef _MSC_VER
-  #define _mm_extract_epi64 _MM_EXTRACT_EPI64
- #else
   #define _mm_extract_epi64 _MM_EXTRACT_EPI64
   #define _mm_insert_epi64 _MM_INSERT_EPI64
- #endif
 #endif
 
 #else
@@ -51,8 +47,10 @@ __inline __m128i _mm_movpi64_epi64(__m64 __A)
 #define _mm_min_epu16 _MM_MIN_EPU16
 #ifndef USE_SSE3
 #define _mm_shuffle_epi8 _MM_SHUFFLE_EPI8
+#undef _mm_comge_epi8 // _mm_comge_epi8はマクロ定義なのでundef
 #define _mm_comge_epi8 _MM_COMGE_EPI8
 #endif
+
 #endif
 
 #ifdef _mm_testc_si128
@@ -68,8 +66,10 @@ __inline int _MM_TESTZ_SI128(__m128i a, __m128i b)
 #ifdef _mm_testz_si128
 __inline int _MM_TESTC_SI128(__m128i a, __m128i b)
 {
-	a = _mm_xor_si128(a, b);
-	return _MM_TESTZ_SI128(a, a);
+	// a = _mm_xor_si128(a, b);
+	// ( (~s1 & s2) == 0 ? 1 : 0 )
+	a = _mm_andnot_si128(a, _mm_set1_epi8(-1));
+	return _MM_TESTZ_SI128(a, b);
 }
 #endif
 
