@@ -167,12 +167,6 @@ FORCE_INLINE void _mm_store_si128(__m128i *p, __m128i a )
 	vst1q_s32((int32_t*) p,a);
 }
 
-FORCE_INLINE void _mm_storeu_si128(__m128i *p, __m128i a ) 
-{
-	vst1q_s32((int32_t*)p, a);
-}
-
-
 // Stores the lower single - precision, floating - point value. https://msdn.microsoft.com/en-us/library/tzz10fbx(v=vs.100).aspx
 FORCE_INLINE void _mm_store_ss(float *p, __m128 a)
 {
@@ -784,12 +778,6 @@ FORCE_INLINE __m128i _mm_cmpgt_epi32(__m128i a, __m128i b)
 	return (__m128i)vcgtq_s32(a, b);
 }
 
-FORCE_INLINE __m128i _mm_cmpeq_epi8(__m128i a, __m128i b)
-{
-	return (__m128i)vceqq_u8((uint8x16_t)a, (uint8x16_t)b);
-}
-
-
 // Compares the four 32-bit floats in a and b to check if any values are NaN. Ordered compare between each value returns true for "orderable" and false for "not orderable" (NaN). https://msdn.microsoft.com/en-us/library/vstudio/0h9w00fx(v=vs.100).aspx
 // see also:
 // http://stackoverflow.com/questions/8627331/what-does-ordered-unordered-comparison-mean
@@ -969,6 +957,16 @@ FORCE_INLINE void _mm_clflush(void const*p) {
 }
 
 
+FORCE_INLINE void _mm_storeu_si128(__m128i *p, __m128i a ) 
+{
+	vst1q_s32((int32_t*)p, a);
+}
+
+FORCE_INLINE __m128i _mm_set1_epi8 (char b)
+{
+	return (__m128i)vdupq_n_s8(b);
+}
+
 FORCE_INLINE int _mm_testz_si128( __m128i a, __m128i b)   // This is much faster in 64 bit                           
 {
     __m128i t;
@@ -980,8 +978,10 @@ FORCE_INLINE int _mm_testz_si128( __m128i a, __m128i b)   // This is much faster
 
 FORCE_INLINE int _mm_testc_si128( __m128i a, __m128i b)                              
 {
-    a = _mm_xor_si128( a, b );
-    return _mm_testz_si128( a, a );
+    // a = _mm_xor_si128( a, b );
+	a = _mm_andnot_si128(a, _mm_set1_epi8(-1));
+
+    return _mm_testz_si128( a, b );
 }
 
 FORCE_INLINE int64_t _mm_extract_epi64(__m128i a, const int ndx)
@@ -1024,11 +1024,6 @@ FORCE_INLINE __m128i _mm_srli_epi64 (__m128i a, int count)
 	return (__m128i)vshrq_n_u64((uint64x2_t)a, count);
 }
 
-FORCE_INLINE __m128i _mm_set1_epi8 (char b)
-{
-	return (__m128i)vdupq_n_s8(b);
-}
-
 FORCE_INLINE __m128i _mm_cmpgt_epi8 (__m128i a, __m128i b)
 {
 	return (__m128i)vcgtq_s8((int8x16_t)a, (int8x16_t)b);
@@ -1067,6 +1062,11 @@ FORCE_INLINE __m128i _mm_sub_epi8 (__m128i a, __m128i b)
 FORCE_INLINE __m128i _mm_subs_epu8 (__m128i a, __m128i b)
 {
 	return (__m128i)vqsubq_u8((uint8x16_t)a, (uint8x16_t)b);
+}
+
+FORCE_INLINE __m128i _mm_cmpeq_epi8(__m128i a, __m128i b)
+{
+	return (__m128i)vceqq_u8((uint8x16_t)a, (uint8x16_t)b);
 }
 
 inline __m128i _mm_comge_epi8(__m128i a, __m128i b)
@@ -1130,8 +1130,8 @@ FORCE_INLINE __m128i _mm_set_epi64x(int64_t i1, int64_t i2)
 FORCE_INLINE __m128i _mm_movpi64_epi64 (__m64 a)
 {
 	sse_m128 A;
-	A.u16[0] = 0;
-	A.m64[1] = a;
+	A.m64[0] = a;
+	A.u64[1] = 0;
 	
 	return A.m128i;
 }
@@ -1153,4 +1153,8 @@ FORCE_INLINE __m128i _mm_cmpeq_epi16 (__m128i a, __m128i b)
 {
 	return (__m128i)vceqq_s16((int16x8_t)a, (int16x8_t)b);
 }
+
+
+#define _mm_empty()
+
 #endif
