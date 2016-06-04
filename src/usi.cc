@@ -38,6 +38,11 @@
 extern void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking* const thinking);
 
 namespace {
+
+#ifdef __ANDROID__
+#define OS
+#define SSE
+#else
 #ifdef _WIN64
  #define OS
 #else
@@ -51,7 +56,7 @@ namespace {
 #else
 #define SSE " SSE2"
 #endif
-
+#endif
 const auto kProgramName = "Gikou 20160601" OS SSE;
 const auto kAuthorName  = "Yosuke Demura";
 const auto kBookFile = "book.bin";

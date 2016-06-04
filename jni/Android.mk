@@ -25,7 +25,7 @@ LOCAL_SRC_FILES := ../src/mate1ply.cc ../src/bench.cc ../src/bitboard.cc ../src/
                    ../src/thinking.cc ../src/thread.cc ../src/time_control.cc ../src/time_manager.cc ../src/usi.cc ../src/usi_protocol.cc \
                    ../src/zobrist.cc
 
-LOCAL_CXXFLAGS  := -std=c++11 -Wall -Wextra -Wcast-qual -fno-exceptions -fno-rtti -pedantic -Wno-long-long  -Wno-error=format-security \
+LOCAL_CXXFLAGS  := -std=c++11 -O3 -Wall -Wextra -Wcast-qual -fno-exceptions -fno-rtti -pedantic -Wno-long-long  -Wno-error=format-security \
                    -D__STDC_CONSTANT_MACROS -D __STDINT_LIMITS -DMINIMUM \
                    -mfpu=neon
 

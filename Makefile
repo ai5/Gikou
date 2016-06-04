@@ -12,7 +12,7 @@ LIBRARIES = -lpthread
 #
 ifeq ($(TARGET),gikou) # executable for Windows
 	sources  := $(shell ls src/*.cc)
-	CXXFLAGS += -O3 -DNDEBUG -DMINIMUM -static
+	CXXFLAGS += -O3 -DNDEBUG -DMINIMUM -DUSE_SSE42 -static
 endif
 ifeq ($(TARGET),release)
 	sources  := $(shell ls src/*.cc)
