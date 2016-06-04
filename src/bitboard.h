@@ -35,7 +35,7 @@
 #include "piece.h"
 #include "square.h"
 
-#include "sse_emulae.h"
+#include "sse_emulate.h"
 
 /**
  * ビットボードを実装したクラスです.

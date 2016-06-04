@@ -32,7 +32,7 @@
 
 #include "position.h"
 
-#include "sse_emulae.h" // VC用
+#include "sse_emulate.h" // VC用
 
 ArrayMap<ExtendedBoard::AttackPattern, Square> ExtendedBoard::attack_correction_;
 ArrayMap<ExtendedBoard::AttackPattern, Piece> ExtendedBoard::short_attack_patterns_;

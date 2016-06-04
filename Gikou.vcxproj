@@ -433,7 +433,7 @@
     <ClInclude Include="src\usi.h" />
     <ClInclude Include="src\usi_protocol.h" />
     <ClInclude Include="src\zobrist.h" />
-    <ClInclude Include="sse_emulae.h" />
+    <ClInclude Include="sse_emulate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
