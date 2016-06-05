@@ -184,7 +184,7 @@ PsqControlList ExtendedBoard::GetPsqControlList() const {
 
   for (size_t i = 0; i < 11; ++i) {
     // a. そのマスにある駒
-    __m128i indices = _mm_cvtepu8_epi16(_mm_movpi64_epi64(board_.mm(i)));
+    __m128i indices = _mm_cvtepu8_epi16(_mm_set_epi64x(0, board_.mm(i)));
     // b. 先手の利き数
     __m128i black_controls = _mm_and_si128(controls_[kBlack].xmm(i), kMaskNumControls);
     black_controls = _mm_min_epu16(black_controls, kMaxNumOfControls); // 利き数の最大値を３に制限する

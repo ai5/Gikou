@@ -697,11 +697,11 @@ class ExtendedBoard {
     const uint8_t& operator[](Square s) const {
       return pieces_[s];
     }
-    __m64& mm(size_t i) {
+    int64_t& mm(size_t i) {
       assert(i < 12);
       return mm_[i];
     }
-    const __m64& mm(size_t i) const {
+    const int64_t& mm(size_t i) const {
       assert(i < 12);
       return mm_[i];
     }
@@ -709,7 +709,7 @@ class ExtendedBoard {
     __m128i padding_head_;
     union {
       uint8_t pieces_[96];
-      __m64 mm_[12];
+	  int64_t mm_[12];
       __m128i xmm_[6];
     };
     __m128i padding_tail_;
