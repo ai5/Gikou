@@ -105,6 +105,12 @@ Move Move::FromSfen(const std::string& sfen, Piece moved, Piece captured) {
 
 Move Move::FromSfen(const std::string& sfen, const Position& pos) {
   assert(sfen.length() == 4 || sfen.length() == 5);
+
+  if (sfen == "0000" || sfen == "pass")
+  {
+	  return kMoveNull;
+  }
+
   bool drop = sfen[1] == '*';
   if (drop) {
     Color c = pos.side_to_move();
