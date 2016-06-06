@@ -51,6 +51,9 @@ mingw版より30%程遅い？ 原因不明(6/2現在）
  MSVCは並べ替えなし
  MINGWは順番が入れ替わってる
 
+=> stable_sortを使う同値で順番を維持するので環境依存がなくなる。
+   (mingw,MSVCとandroidでノード数等が同じになる)
+
 
 ・6/1ベンチメモ
 core i5 1 thread depth 15
@@ -141,6 +144,11 @@ b1c 1b2c P*3a P*3b P*3c P*3d P*3h P*4a P*4d P*4e P*4f P*4g P*4h P*5a P*5b P*5c P
 *9c S*9c N*9c G*9e S*9e N*9e G*9f S*9f N*9f
 
 
+・6/6 ソートをいじったベンチ
+info depth 15 seldepth 23 time 20634 nodes 490552 nps 23773 hashfull 95 score cp
+ -1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3
+h S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
 
 
 ・Gikouで使われているSSE命令

@@ -21,16 +21,17 @@
 #define PSQ_H_
 
 #include <cstdlib>
+#if defined(__arm__)
+#include "SSE2NEON.h"
+#else
 #include <tmmintrin.h> // SSSE 3
+#endif
 #include "common/array.h"
 #include "common/arraymap.h"
 #include "common/sequence.h"
 #include "hand.h"
 #include "move.h"
 
-#ifdef __arm__
-#include "SSE2NEON.h"
-#endif
 
 class Position;
 
