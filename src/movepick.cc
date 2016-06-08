@@ -60,9 +60,9 @@ inline ExtMove* PickBest(ExtMove* begin, ExtMove* end) {
 }
 
 inline void SortMoves(ExtMove* begin, ExtMove* end) {
-  return std::sort(begin, end, is_greater); // 降順でソートする
+  // return std::sort(begin, end, is_greater); // 降順でソートする
   // ここをstable_sortにするとmingw,MSVC,androidでbench時の評価値、ノード数等が同じになる
-  // return std::stable_sort(begin, end, is_greater); // 降順でソートする
+  return std::stable_sort(begin, end, is_greater); // 降順でソートする
 }
 
 inline Score GetMvvLvaScore(Move move) {
