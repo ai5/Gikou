@@ -40,10 +40,18 @@ extern void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking*
 namespace {
 
 #ifdef __ANDROID__
-#if defined(IS_64BIT)
- #define OS
+#ifdef IS_64BIT
+#ifdef IS_ARM
+ #define OS " ARM 64bit"
+#else
+ #define OS " 64bit"
+#endif
+#else
+#ifdef IS_ARM
+ #define OS " ARM 32bit"
 #else
  #define OS " 32bit"
+#endif
 #endif
 #define SSE " "
 #else
