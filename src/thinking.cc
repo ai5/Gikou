@@ -47,6 +47,8 @@ void Thinking::Initialize() {
 
 void Thinking::StartNewGame() {
   // 現在のところ、特に行う処理はない
+	// newgame でクリアする
+	shared_data_.hash_table.Clear();
 }
 
 void Thinking::ResetSignals() {

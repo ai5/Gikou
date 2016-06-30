@@ -24,10 +24,21 @@ LOCAL_SRC_FILES := ../src/mate1ply.cc ../src/bench.cc ../src/bitboard.cc ../src/
                    ../src/psq.cc ../src/search.cc ../src/square.cc ../src/swap.cc ../src/synced_printf.cc ../src/task_thread.cc \
                    ../src/thinking.cc ../src/thread.cc ../src/time_control.cc ../src/time_manager.cc ../src/usi.cc ../src/usi_protocol.cc \
                    ../src/zobrist.cc
+ARCH_DEF := -DTARGET_ARCH="$(TARGET_ARCH_ABI)"
+ifeq ($(TARGET_ARCH_ABI),arm64-v8a)
+  ARCH_DEF += -DIS_64BIT -mfpu=neon
+endif
+
+ifeq ($(TARGET_ARCH_ABI),x86_64)
+  ARCH_DEF += -DIS_64BIT
+endif
+
+ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
+  ARCH_DEF += -mfpu=neon
+endif
 
 LOCAL_CXXFLAGS  := -std=c++11 -O3 -Wall -Wextra -Wcast-qual -fno-exceptions -fno-rtti -pedantic -Wno-long-long  -Wno-error=format-security \
-                   -D__STDC_CONSTANT_MACROS -D __STDINT_LIMITS -DMINIMUM \
-                   -mfpu=neon
+                   -D__STDC_CONSTANT_MACROS -D __STDINT_LIMITS -DMINIMUM $(ARCH_DEF)\
 
 LOCAL_CXXFLAGS += -fPIE
 LOCAL_LDFLAGS += -fPIE -pie 

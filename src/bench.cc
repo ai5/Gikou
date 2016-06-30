@@ -38,6 +38,7 @@ void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking* const 
 
 	thinking->Initialize();
 	Evaluation::ReadParametersFromFile("params.bin");
+	thinking->StartNewGame();
 
 	std::vector<std::string> fens(BenchSfen, BenchSfen + 3);
 

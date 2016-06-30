@@ -40,11 +40,16 @@ extern void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking*
 namespace {
 
 #ifdef __ANDROID__
-#define OS
-#define SSE
+#if defined(IS_64BIT)
+ #define OS
+#else
+ #define OS " 32bit"
+#endif
+#define SSE " "
 #else
 #ifdef _WIN64
  #define OS
+ #define IS_64BIT
 #else
 #define OS " 32bit"
 #endif
@@ -232,8 +237,14 @@ void ExecuteCommand(const std::string& command, Node* const node,
     SYNCED_PRINTF("usiok\n");
 
   } else if (type == "isready") {
-    thinking->Initialize();
-    Evaluation::ReadParametersFromFile("params.bin");
+	  static bool first = true;
+	  if (first)
+	  {
+		  // 初回だけにする
+		  thinking->Initialize();
+		  Evaluation::ReadParametersFromFile("params.bin");
+		  first = false;
+	  }
     SYNCED_PRINTF("readyok\n");
 
   } else if (type == "setoption") {
@@ -316,7 +327,11 @@ void Usi::Start() {
 
 UsiOptions::UsiOptions() {
   // トランスポジションテーブルのサイズ（単位はMB）
+#ifdef IS_64BIT
   map_.emplace("USI_Hash", UsiOption(256, 1, 16384)); // from 1MB to 16GB
+#else
+  map_.emplace("USI_Hash", UsiOption(64, 1, 16384)); // from 1MB to 16GB
+#endif
 
   // 先読みを有効にする場合はtrue
   map_.emplace("USI_Ponder", UsiOption(true));
