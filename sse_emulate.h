@@ -45,7 +45,7 @@ __inline __m128i _mm_movpi64_epi64(__m64 __A)
 #define _mm_insert_epi64 _MM_INSERT_EPI64
 #define _mm_cvtepu8_epi16 _MM_CVTEPU8_EPI16
 #define _mm_min_epu16 _MM_MIN_EPU16
-#ifndef USE_SSE3
+#if !defined(USE_SSE3) && !defined(__ANDROID__)
 #define _mm_shuffle_epi8 _MM_SHUFFLE_EPI8
 #undef _mm_comge_epi8 // _mm_comge_epi8はマクロ定義なのでundef
 #define _mm_comge_epi8 _MM_COMGE_EPI8
@@ -74,7 +74,7 @@ __inline int _MM_TESTC_SI128(__m128i a, __m128i b)
 #endif
 
 #ifdef _mm_extract_epi64
-__inline __int64 _MM_EXTRACT_EPI64(__m128i a, const int ndx)
+__inline int64_t _MM_EXTRACT_EPI64(__m128i a, const int ndx)
 {
 	sse_m128 mask;
 	switch (ndx & 0x1)
@@ -90,7 +90,7 @@ __inline __int64 _MM_EXTRACT_EPI64(__m128i a, const int ndx)
 #endif
 
 #ifdef _mm_insert_epi64
-__inline __m128i _MM_INSERT_EPI64(__m128i a, __int64 b, const int ndx)
+__inline __m128i _MM_INSERT_EPI64(__m128i a, int64_t b, const int ndx)
 {
 	sse_m128 A;
 	A.m128i = a;
