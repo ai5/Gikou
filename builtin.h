@@ -56,4 +56,4 @@ inline void __builtin_prefetch(const void *addr, ...)
 #endif
 
 
-#endif //BUILTIN_H_
+#endif /* BUILTIN_H_ */
