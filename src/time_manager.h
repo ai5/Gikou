@@ -96,11 +96,16 @@ class TimeManager : public TaskThread {
 	  return this->depth_;
   }
 
+  uint64_t nodes() const {
+    return this->nodes_;
+  }
+
  private:
   void Run();
   const UsiOptions& usi_options_;
   bool ponder_ = false;
   int depth_ = 0;
+  uint64_t nodes_ = 0;
   std::unique_ptr<TimeControl> time_control_;
   std::atomic_bool stop_{false};
   std::atomic_bool ponderhit_{false};

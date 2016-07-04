@@ -382,6 +382,12 @@ UsiOptions::UsiOptions() {
 
   // 勝ち数が少ない定跡を除外する場合はtrue
   map_.emplace("TinyBook", UsiOption(false));
+
+  // 探索深さ制限
+  map_.emplace("LimitDepth", UsiOption(0, 0, 99));
+
+  // 探索ノード制限
+  map_.emplace("LimitNodes", UsiOption(0, 0, INT_MAX));
 }
 
 void UsiOptions::PrintListOfOptions() {
