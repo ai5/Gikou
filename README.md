@@ -6,6 +6,8 @@
 オープンソース・ソフトですので、どなたでも無料でお使いいただけます。
 「将棋所」や「ShogiGUI」などのソフトに登録してご利用ください。
 
+技巧に関する最新情報は、Twitter（[@gikou_shogi](https://twitter.com/gikou_shogi)）でお知らせしていく予定です。
+
 ## 技巧のダウンロード
 
 技巧（Windows版）は、以下のリンクから入手できます。
@@ -14,7 +16,7 @@
 
 技巧の動作環境は、以下のとおりです。
 （新しい技術を使っている関係で、古いパソコンでは動作しない場合もございます。）
-- OS: 64ビット対応OS（Windows 10、Max OS X、Ubuntu Linux 14.04を推奨） 
+- OS: 64ビット対応OS（Windows 7/8/10、Max OS X、Ubuntu Linux 14.04など） 
 - CPU: SSE 4.2 対応のCPU（インテルの Core-i シリーズのCPUを推奨）
 - メモリ: 1GB以上の空きメモリ
 - ディスク: 512MB以上の空きがあるHDD・SSD（SSDのほうが快適です）
@@ -28,8 +30,8 @@
 5. 必要に応じて、技巧のオプションを設定してみてください（定跡などの設定ができます）
 
 設定の方法など、詳しい使い方については、将棋所 や ShogiGUI のホームページをご覧ください。
-- 将棋所 http://www.geocities.jp/shogidokoro/
-- ShogiGUI https://sites.google.com/site/shogixyz/home/shogigui
+- 将棋所: http://www.geocities.jp/shogidokoro/
+- ShogiGUI: https://sites.google.com/site/shogixyz/home/shogigui
 
 ## 開発者の皆様へ
 
@@ -38,12 +40,12 @@
 - コンパイラ等: g++ 4.8以上, make
 
 技巧は、C++11で書かれており、コーディング規約等は概ね以下のページを参考にしています。
-- コーディング規約: Google C++ Style Guide, https://google.github.io/styleguide/cppguide.html
-- コメント表記: Doxygen, http://www.doxygen.org/
+- コーディング規約: [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
+- コメント表記: [Doxygen](http://www.doxygen.org/)
 
 技巧の技術的特徴については、以下のスライドをご参照ください。
-- 電王トーナメントPR文書（http://denou.jp/tournament2015/img/PR/Gikou.pdf）
-- 世界コンピュータ将棋選手権PR文書（http://www2.computer-shogi.org/wcsc26/appeal/Gikou/gikou_appeal_wcsc26_ver3.pdf）
+- [第3回将棋電王トーナメント PR文書](http://denou.jp/tournament2015/img/PR/Gikou.pdf)
+- [第26回世界コンピュータ将棋選手権 アピール文書](http://www2.computer-shogi.org/wcsc26/appeal/Gikou/gikou_appeal_wcsc26_ver3.pdf)
 
 バグ、不具合、コメントの誤字脱字等を発見をされましたら、ご報告いただけますと幸いです。
 
