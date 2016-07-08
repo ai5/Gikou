@@ -22,7 +22,7 @@
 
 #include <cstring>
 
-#if defined(__arm__)
+#if defined(IS_ARM)
 #include "SSE2NEON.h"
 #else
 #include <tmmintrin.h> // SSSE 3 (Supplementary Streaming SIMD Extensions 3)

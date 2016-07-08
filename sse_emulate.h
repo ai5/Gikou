@@ -3,7 +3,7 @@
 #ifndef SSE_EMULATE_H_
 #define SSE_EMULATE_H_
 
-#ifndef __arm__
+#ifndef IS_ARM
 // SSE3以降の命令をエミュレーション
 // SSEPlusから必要なものをコピペしたもの
 // http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/sseplus-project/
@@ -176,6 +176,6 @@ inline __m128i _MM_SHUFFLE_EPI8(__m128i a, __m128i mask)
 }
 #endif
 
-#endif // __arm__
-#endif //BUILTIN_H_
+#endif // IS_ARM
+#endif // BUILTIN_H_
 

@@ -22,7 +22,7 @@
 #include <vector>
 #include <utility>
 
-#if defined(__arm__)
+#if defined(IS_ARM)
 #include "SSE2NEON.h"
 #elif defined(USE_SSE42)
 #include <smmintrin.h> // SSE 4.1

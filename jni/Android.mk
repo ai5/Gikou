@@ -26,7 +26,7 @@ LOCAL_SRC_FILES := ../src/mate1ply.cc ../src/bench.cc ../src/bitboard.cc ../src/
                    ../src/zobrist.cc
 ARCH_DEF := -DTARGET_ARCH="$(TARGET_ARCH_ABI)"
 ifeq ($(TARGET_ARCH_ABI),arm64-v8a)
-  ARCH_DEF += -DIS_64BIT -mfpu=neon
+  ARCH_DEF += -DIS_64BIT -DIS_ARM
 endif
 
 ifeq ($(TARGET_ARCH_ABI),x86_64)
@@ -34,7 +34,7 @@ ifeq ($(TARGET_ARCH_ABI),x86_64)
 endif
 
 ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
-  ARCH_DEF += -mfpu=neon
+  ARCH_DEF += -mfpu=neon -DIS_ARM
 endif
 
 LOCAL_CXXFLAGS  := -std=c++11 -O3 -Wall -Wextra -Wcast-qual -fno-exceptions -fno-rtti -pedantic -Wno-long-long  -Wno-error=format-security \

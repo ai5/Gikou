@@ -21,7 +21,7 @@
 #define PSQ_H_
 
 #include <cstdlib>
-#if defined(__arm__)
+#if defined(IS_ARM)
 #include "SSE2NEON.h"
 #else
 #include <tmmintrin.h> // SSSE 3
