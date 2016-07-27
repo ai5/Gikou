@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include<random>
 #include <vector>
 #include <unordered_map>
 #include "common/array.h"
