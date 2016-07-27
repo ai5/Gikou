@@ -41,7 +41,7 @@ LOCAL_CXXFLAGS  := -std=c++11 -O3 -Wall -Wextra -Wcast-qual -fno-exceptions -fno
                    -D__STDC_CONSTANT_MACROS -D __STDINT_LIMITS -DMINIMUM $(ARCH_DEF)\
 
 LOCAL_CXXFLAGS += -fPIE
-LOCAL_LDFLAGS += -fPIE -pie 
+LOCAL_LDFLAGS += -fPIE -pie
 LOCAL_LDLIBS = 
 
 LOCAL_C_INCLUDES := ../ ../src

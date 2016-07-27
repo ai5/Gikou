@@ -150,6 +150,138 @@ info depth 15 seldepth 23 time 20634 nodes 490552 nps 23773 hashfull 95 score cp
 h S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
 bestmove G*3c ponder 4c3d+
 
+・snapdragon 650 arm64-v8a
+time = 30193ms
+info depth 15 seldepth 25 time 10877 nodes 980666 nps 90159 hashfull 35 score cp
+ -189 multipv 1 pv 8d7d P*7f B*6h B*6f 6h7g+ 6f7g 5i5h+ S*7h 4e5g+ B*6i 5h4h 4a3
+b+ 5g6g P*5h 6g7g 7h7g 4h5i G*2e 2d1c 1f1e 5i6i
+bestmove 8d7d ponder P*7f
+
+info depth 15 seldepth 24 time 14331 nodes 1198385 nps 83621 hashfull 81 score c
+p -459 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 3g4h 5g4h N*5f 4e5f 5e5f
+bestmove N*4d ponder 5b5c
+
+info depth 15 seldepth 23 time 4973 nodes 490552 nps 98643 hashfull 95 score cp
+-1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3h
+ S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+
+・snapdragon 650 armeabi-v7a
+time = 35130ms
+info depth 15 seldepth 23 time 5797 nodes 490552 nps 84621 hashfull 95 score cp
+-1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3h
+ S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
+
+・7/27 1手詰めを変更したものの実行結果
+
+Windos 64
+
+info depth 15 seldepth 25 time 3373 nodes 980587 nps 290716 hashfull 35 score cp
+ -189 multipv 1 pv 8d7d P*7f B*6h B*6f 6h7g+ 6f7g 5i5h+ S*7h 4e5g+ B*6i 5h4h 4a3
+b+ 5g6g P*5h 6g7g 7h7g 4h5i G*2e 2d1c 1f1e 5i6i
+bestmove 8d7d ponder P*7f
+
+info depth 15 seldepth 24 time 4380 nodes 1198244 nps 273571 hashfull 81 score c
+p -459 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 3g4h 5g4h N*5f 4e5f 5e5f
+bestmove N*4d ponder 5b5c
+
+info depth 15 seldepth 23 time 1511 nodes 490516 nps 324630 hashfull 95 score cp
+ -1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3
+h S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
+time = 9273ms
+
+Windows x86
+info depth 15 seldepth 25 time 4024 nodes 980587 nps 243684 hashfull 35 score cp
+ -189 multipv 1 pv 8d7d P*7f B*6h B*6f 6h7g+ 6f7g 5i5h+ S*7h 4e5g+ B*6i 5h4h 4a3
+b+ 5g6g P*5h 6g7g 7h7g 4h5i G*2e 2d1c 1f1e 5i6i
+bestmove 8d7d ponder P*7f
+
+info depth 15 seldepth 24 time 5466 nodes 1198244 nps 219217 hashfull 81 score c
+p -459 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 3g4h 5g4h N*5f 4e5f 5e5f
+bestmove N*4d ponder 5b5c
+
+info depth 15 seldepth 23 time 1867 nodes 490516 nps 262729 hashfull 95 score cp
+ -1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3
+h S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
+time = 11367ms
+
+Windows x86 SSE2
+
+info depth 15 seldepth 25 time 4956 nodes 980587 nps 197858 hashfull 35 score cp
+ -189 multipv 1 pv 8d7d P*7f B*6h B*6f 6h7g+ 6f7g 5i5h+ S*7h 4e5g+ B*6i 5h4h 4a3
+b+ 5g6g P*5h 6g7g 7h7g 4h5i G*2e 2d1c 1f1e 5i6i
+bestmove 8d7d ponder P*7f
+
+info depth 15 seldepth 24 time 6531 nodes 1198244 nps 183470 hashfull 81 score c
+p -459 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 3g4h 5g4h N*5f 4e5f 5e5f
+bestmove N*4d ponder 5b5c
+
+info depth 15 seldepth 23 time 2230 nodes 490516 nps 219962 hashfull 95 score cp
+ -1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3
+h S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
+time = 13724ms
+
+Windows x86 SSE3
+
+info depth 15 seldepth 25 time 4374 nodes 980587 nps 224185 hashfull 35 score cp
+ -189 multipv 1 pv 8d7d P*7f B*6h B*6f 6h7g+ 6f7g 5i5h+ S*7h 4e5g+ B*6i 5h4h 4a3
+b+ 5g6g P*5h 6g7g 7h7g 4h5i G*2e 2d1c 1f1e 5i6i
+bestmove 8d7d ponder P*7f
+
+info depth 15 seldepth 24 time 5915 nodes 1198244 nps 202577 hashfull 81 score c
+p -459 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 3g4h 5g4h N*5f 4e5f 5e5f
+bestmove N*4d ponder 5b5c
+
+info depth 15 seldepth 23 time 2029 nodes 490516 nps 241752 hashfull 95 score cp
+ -1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3
+h S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
+time = 12327ms
+
+arm64-v8a
+
+info depth 15 seldepth 25 time 10572 nodes 980587 nps 92753 hashfull 35 score cp
+ -189 multipv 1 pv 8d7d P*7f B*6h B*6f 6h7g+ 6f7g 5i5h+ S*7h 4e5g+ B*6i 5h4h 4a3
+b+ 5g6g P*5h 6g7g 7h7g 4h5i G*2e 2d1c 1f1e 5i6i
+bestmove 8d7d ponder P*7f
+
+info depth 15 seldepth 24 time 14292 nodes 1198244 nps 83840 hashfull 81 score c
+p -459 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 3g4h 5g4h N*5f 4e5f 5e5f
+bestmove N*4d ponder 5b5c
+
+info depth 15 seldepth 23 time 4952 nodes 490516 nps 99054 hashfull 95 score cp
+-1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3h
+ S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
+time = 29827ms
+
+armeabi-v7a
+
+info depth 15 seldepth 25 time 12548 nodes 980587 nps 78146 hashfull 35 score cp
+ -189 multipv 1 pv 8d7d P*7f B*6h B*6f 6h7g+ 6f7g 5i5h+ S*7h 4e5g+ B*6i 5h4h 4a3
+b+ 5g6g P*5h 6g7g 7h7g 4h5i G*2e 2d1c 1f1e 5i6i
+bestmove 8d7d ponder P*7f
+
+info depth 15 seldepth 24 time 16639 nodes 1198244 nps 72014 hashfull 81 score c
+p -459 multipv 1 pv N*4d 5b5c S*4b 2d4b 6f5g G*7i 6i5h 2g3g L*4f P*4e 5d4e 5c4d
+G*3d 4d5e 7b7c 2f2h+ L*4h 3g4h 5g4h N*5f 4e5f 5e5f
+bestmove N*4d ponder 5b5c
+
+info depth 15 seldepth 23 time 5749 nodes 490516 nps 85321 hashfull 95 score cp
+-1933 multipv 1 pv G*3c 4c3d+ N*2c 2d2c+ 2b2c 3d2c 3c2c N*2d 1b1c R*4c P*3c G*3h
+ S*5d 4c5c+ S*4h 3h3i 4h3g+ B*3a G*2b 2d3b+
+bestmove G*3c ponder 4c3d+
+time = 34947ms
+
 
 ・Gikouで使われているSSE命令
 
