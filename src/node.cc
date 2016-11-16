@@ -217,7 +217,10 @@ Key64 Node::ComputeKey(Move move) const {
 
   Piece piece = move.piece();
   Key64 result = Zobrist::null_move(piece.color());
-  if (move.is_drop()) {
+  if (move == kMoveNull)
+  {
+
+  } else if (move.is_drop()) {
     result -= Zobrist::hand(piece);
     result += Zobrist::psq(piece, move.to());
   } else {

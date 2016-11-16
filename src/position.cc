@@ -343,7 +343,11 @@ void Position::MakeMove(Move move, bool move_gives_check) {
   const Color stm = side_to_move_;
   current_state->extended_board = previous_state->extended_board;
 
-  if (move.is_drop()) {
+  if (move == kMoveNull)
+  {
+
+  } 
+  else if (move.is_drop()) {
     Square to = move.to();
     PieceType pt = move.piece_type();
 
