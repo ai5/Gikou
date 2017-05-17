@@ -1,5 +1,51 @@
 作業メモ
 
+■2017
+・VC32,64ともmove_probabilityで例外
+　-> インディックスがマイナスになる場合あり？余りから直値でAndにする
+
+・GenerateNext()のkProbability0の時に指し手が0の時がある？
+  -> 0の場合は処理しないようにしてみる
+
+・vcビルド 32,64でノード数不一致
+  -> 64はノード数が不安定 ->保留
+
+
+・win64
+info depth 15 seldepth 30 time 3997 nodes 1229498 nps 307605 hashfull 187 score cp -586 multipv 1 pv 3b3c 4a5b+ 8d7d P*7f 4e5g+ S*2e 2d1c 1f1e 1c1b 1e1d P*1h 1i1h 5i5h+ 8h8g 5h1h G*1c 2b1c 1d1c+ 1b1c
+bestmove 3b3c ponder 4a5b+
+time = 4000ms
+
+・win32
+info depth 15 seldepth 30 time 4968 nodes 1229504 nps 247484 hashfull 187 score cp -586 multipv 1 pv 3b3c 4a5b+ 8d7d P*7f 4e5g+ S*2e 2d1c 1f1e 1c1b 1e1d P*1h 1i1h 5i5h+ 8h8g 5h1h G*1c 2b1c 1d1c+ 1b1c
+bestmove 3b3c ponder 4a5b+
+
+time = 4970ms
+
+・arm64-v8a
+info depth 15 seldepth 30 time 14580 nodes 1229497 nps 84327 hashfull 187 score cp -586 multipv 1 pv 3b3c 4a5b+ 8d7d P*7f 4e5g+ S*2e 2d1c 1f1e 1c1b 1e1d P*1h 1i1h 5i5h+ 8h8g 5h1h G*1c 2b1c 1d1c+ 1b1c
+bestmove 3b3c ponder 4a5b+
+
+・armeabi-v7a(a72)
+info depth 15 seldepth 30 time 16977 nodes 1229504 nps 72421 hashfull 187 score cp -586 multipv 1 pv 3b3c 4a5b+ 8d7d P*7f 4e5g+ S*2e 2d1c 1f1e 1c1b 1e1d P*1h 1i1h 5i5h+ 8h8g 5h1h G*1c 2b1c 1d1c+ 1b1c
+bestmove 3b3c ponder 4a5b+
+
+・armeabi-v7a(a53)
+info depth 15 seldepth 30 time 60351 nodes 1229498 nps 20372 hashfull 187 score cp -586 multipv 1 pv 3b3c 4a5b+ 8d7d P*7f 4e5g+ S*2e 2d1c 1f1e 1c1b 1e1d P*1h 1i1h 5i5h+ 8h8g 5h1h G*1c 2b1c 1d1c+ 1b1c
+bestmove 3b3c ponder 4a5b+
+time = 60362ms
+
+・x86_64(エミュ
+info depth 15 seldepth 30 time 11607 nodes 1229497 nps 105927 hashfull 187 score cp -586 multipv 1 pv 3b3c 4a5b+ 8d7d P*7f 4e5g+ S*2e 2d1c 1f1e 1c1b 1e1d P*1h 1i1h 5i5h+ 8h8g 5h1h G*1c 2b1c 1d1c+ 1b1c
+bestmove 3b3c ponder 4a5b+
+
+・x86(エミュ
+info depth 15 seldepth 30 time 14763 nodes 1229499 nps 83282 hashfull 187 score cp -586 multipv 1 pv 3b3c 4a5b+ 8d7d P*7f 4e5g+ S*2e 2d1c 1f1e 1c1b 1e1d P*1h 1i1h 5i5h+ 8h8g 5h1h G*1c 2b1c 1d1c+ 1b1c
+bestmove 3b3c ponder 4a5b+
+time = 14765ms
+
+■2016
+
 ・文字コード
 /source-charset:utf-8では一部のソースで文字ほげは認識できませんと出るので、
 全部utf-8BOM付きに置き換え
