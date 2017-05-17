@@ -23,24 +23,24 @@ static const char* BenchSfen[] = {
 
 	// 57同銀は詰み、みたいな。
 	// 読めば読むほど先手が悪いことがわかってくる局面。
-	"6n1l/2+S1k4/2lp4p/1np1B2b1/3PP4/1N1S3rP/1P2+pPP+p1/1p1G5/3KG2r1 b GSN2L4Pgs2p 1",
+	// "6n1l/2+S1k4/2lp4p/1np1B2b1/3PP4/1N1S3rP/1P2+pPP+p1/1p1G5/3KG2r1 b GSN2L4Pgs2p 1",
 
 	// 指し手生成祭りの局面
 	// cf. http://d.hatena.ne.jp/ak11/20110508/p1
-	"l6nl/5+P1gk/2np1S3/p1p4Pp/3P2Sp1/1PPb2P1P/P5GS1/R8/LN4bKL w RGgsn5p 1",
+	// "l6nl/5+P1gk/2np1S3/p1p4Pp/3P2Sp1/1PPb2P1P/P5GS1/R8/LN4bKL w RGgsn5p 1",
 };
 
 void bench_cmd(Node* const node, UsiOptions* const usi_options, Thinking* const thinking)
 {
 
-	(*usi_options)["USI_Hash"] = std::string("256");
+	(*usi_options)["USI_Hash"] = std::string("64");
 	(*usi_options)["Threads"] = std::string("1");
 
 	thinking->Initialize();
 	Evaluation::ReadParametersFromFile("params.bin");
 	thinking->StartNewGame();
 
-	std::vector<std::string> fens(BenchSfen, BenchSfen + 3);
+	std::vector<std::string> fens(BenchSfen, BenchSfen + 1);
 
 	UsiGoOptions go_options;
 	go_options.depth = 15;

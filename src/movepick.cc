@@ -328,20 +328,30 @@ void MovePicker::GenerateNext() {
     case kProbability0: {
       cur_ = moves_.begin();
       end_ = GenerateMoves<kAllMoves>(pos_, cur_);
+//			int nmove = end_ - cur_;
+
       end_ = RemoveIllegalMoves(pos_, cur_, end_);
       size_t num_moves = end_ - cur_;
 
-      // 指し手の実現確率を計算する
-      const HistoryStats* cmh = (ss_-1)->countermoves_history;
-      const HistoryStats* fmh = (ss_-2)->countermoves_history;
-      std::valarray<double> probabilities = MoveProbability::ComputeProbabilitiesWithCache(
-          pos_, history_, gains_, cmh, fmh);
+			if (num_moves <= 0)
+			{
+				// 指し手が0の場合がある？
+				// printf("err? %d\n", nmove);
+			}
+			else
+			{
+				// 指し手の実現確率を計算する
+				const HistoryStats* cmh = (ss_ - 1)->countermoves_history;
+				const HistoryStats* fmh = (ss_ - 2)->countermoves_history;
+				std::valarray<double> probabilities = MoveProbability::ComputeProbabilitiesWithCache(
+					pos_, history_, gains_, cmh, fmh);
 
-      // 指し手の実現確率が高い順にソートする
-      for (size_t i = 0; i < num_moves; ++i) {
-        (cur_ + i)->score = static_cast<int>(double(1 << 30) * probabilities[i]);
-      }
-      SortMoves(cur_, end_);
+				// 指し手の実現確率が高い順にソートする
+				for (size_t i = 0; i < num_moves; ++i) {
+					(cur_ + i)->score = static_cast<int>(double(1 << 30) * probabilities[i]);
+				}
+				SortMoves(cur_, end_);
+			}
       return;
     }
 
