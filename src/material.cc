@@ -1,6 +1,6 @@
-﻿/*
+/*
  * 技巧 (Gikou), a USI shogi (Japanese chess) playing engine.
- * Copyright (C) 2016 Yosuke Demura
+ * Copyright (C) 2016-2017 Yosuke Demura
  * except where otherwise indicated.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +16,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "material.h"
+
+#include <utility>
+#include "common/array.h"
+#include "evaluation.h"
+
+ArrayMap<Score, PieceType> Material::values_;
+ArrayMap<Score, PieceType> Material::promotion_values_;
+ArrayMap<Score, PieceType> Material::exchange_values_;
+ArrayMap<Score, PieceType> Material::exchange_orders_;
+
+void Material::Init() {
+  values_[kNoPieceType]           = kScoreZero;
+  promotion_values_[kNoPieceType] = kScoreZero;
+  exchange_values_[kNoPieceType]  = kScoreZero;
+  exchange_orders_[kNoPieceType]  = kScoreZero;
+  SetValue(kKing, kScoreZero);
+  UpdateTables();
+}
+
+void Material::UpdateTables() {
+  for (PieceType pt : Piece::all_piece_types()) {
+    if (pt != kKing) {
+      SetValue(pt, g_eval_params->material[pt]);
+    }
+  }
+  UpdateExchangeOrders();
+}
 
 #include "material.h"
 

@@ -1,6 +1,6 @@
 ﻿/*
  * 技巧 (Gikou), a USI shogi (Japanese chess) playing engine.
- * Copyright (C) 2016 Yosuke Demura
+ * Copyright (C) 2016-2017 Yosuke Demura
  * except where otherwise indicated.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -30,10 +30,20 @@ struct Signals {
     stop                 = false;
     ponderhit            = false;
     first_move_completed = false;
+    limit_reached        = false;
   }
-  std::atomic_bool stop                {false};
-  std::atomic_bool ponderhit           {false};
+
+  /** USIのstopコマンドを受信した場合、true. */
+  std::atomic_bool stop{false};
+
+  /** USIのponderhitコマンドを受信した場合、true. */
+  std::atomic_bool ponderhit{false};
+
+  /** ルート局面において最初の１手を読み終えたら、true. */
   std::atomic_bool first_move_completed{false};
+
+  /** 探索ノード数または探索深さの制限を超えたら、true. */
+  std::atomic_bool limit_reached{false};
 };
 
 #endif /* SIGNALS_H_ */

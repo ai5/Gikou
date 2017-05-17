@@ -1,6 +1,6 @@
 ﻿/*
  * 技巧 (Gikou), a USI shogi (Japanese chess) playing engine.
- * Copyright (C) 2016 Yosuke Demura
+ * Copyright (C) 2016-2017 Yosuke Demura
  * except where otherwise indicated.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -154,7 +154,7 @@ void TimeManager::Run() {
     }
 
     // Step 2. 消費時間ベースの打ち切り
-    // 消費時間が最大思考時間を上回ったら思考を直ちに終了する
+    // 消費時間が最大思考時間を上回ったら思考を直ちに終了する（切れ負けを防ぐ）
     if (expended_time() >= time_control_->maximum_time()) {
       HandleTimeUpEvent();
       break;

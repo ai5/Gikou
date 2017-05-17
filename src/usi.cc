@@ -1,6 +1,6 @@
 ﻿/*
  * 技巧 (Gikou), a USI shogi (Japanese chess) playing engine.
- * Copyright (C) 2016 Yosuke Demura
+ * Copyright (C) 2016-2017 Yosuke Demura
  * except where otherwise indicated.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -62,9 +62,8 @@ namespace {
 #define SSE " SSE2"
 #endif
 #endif
-const auto kProgramName = "Gikou 20160606" OS SSE;
+const auto kProgramName = "Gikou 2 (v2.0.2)" OS SSE;
 const auto kAuthorName  = "Yosuke Demura";
-const auto kBookFile = "book.bin";
 
 /**
  * USIコマンドを記憶するためのキューです.
@@ -112,7 +111,12 @@ void ReceiveCommands(CommandQueue* const queue, Thinking* const thinking) {
   assert(thinking != nullptr);
 
   // 標準入力から1行ずつ読み込む
-  for (std::string command; std::getline(std::cin, command);) {
+  for (std::string command; ;) {
+    // EOFが送られてきたときは、quitコマンドと同様の処理をしてから終了させる
+    if (!std::getline(std::cin, command)) {
+      command = "quit";
+    }
+
     std::istringstream is(command);
     std::string type;
     is >> type;
@@ -162,7 +166,7 @@ void SetUsiOption(std::istream& is, UsiOptions* const usi_options) {
     if (token == "name") {
       is >> name;
     } else if (token == "value") {
-      is >> value;
+      std::getline(is >> std::ws, value);
     }
   }
 
@@ -360,14 +364,19 @@ UsiOptions::UsiOptions() {
   // 定跡を使うか否か（trueならば、定跡を用いる）
   map_.emplace("OwnBook", UsiOption(true));
 
-  // 定跡を用いる最大手数
-  map_.emplace("BookMaxPly", UsiOption(50, 0, 50));
+  // 定跡ファイル
+  map_.emplace("BookFile", UsiOption("book.bin"));
 
+  // 定跡を用いる最大手数
+  map_.emplace("BookMaxPly", UsiOption(20, 0, 50));
+
+#if 0
   // 定跡手の評価値のしきい値（先手番）（先手番側から見た評価値がこの値未満の定跡手は選択しない）
-  map_.emplace("MinBookScoreForBlack", UsiOption(0, -500, 500));
+  map_.emplace("MinBookScoreForBlack", UsiOption(-300, -500, 500));
 
   // 定跡手の評価値のしきい値（後手番）（後手番側から見た評価値がこの値未満の定跡手は選択しない）
-  map_.emplace("MinBookScoreForWhite", UsiOption(-180, -500, 500));
+  map_.emplace("MinBookScoreForWhite", UsiOption(-300, -500, 500));
+#endif
 
   // 出現頻度や勝率が低い定跡を除外する場合はtrue
   map_.emplace("NarrowBook", UsiOption(false));
@@ -375,11 +384,19 @@ UsiOptions::UsiOptions() {
   // 勝ち数が少ない定跡を除外する場合はtrue
   map_.emplace("TinyBook", UsiOption(false));
 
+<<<<<<< HEAD
   // 探索深さ制限
   map_.emplace("LimitDepth", UsiOption(0, 0, 99));
 
   // 探索ノード制限
   map_.emplace("LimitNodes", UsiOption(0, 0, INT_MAX));
+=======
+  // 読みの深さ（強さのレベル）
+  map_.emplace("DepthLimit", UsiOption(kMaxPly, 1, kMaxPly));
+
+  // 投了する評価値（評価値がこの値以下になったら、技巧が投了する）
+  map_.emplace("ResignScore", UsiOption(-10000, -kScoreInfinite, -500));
+>>>>>>> master
 }
 
 void UsiOptions::PrintListOfOptions() {
@@ -404,6 +421,10 @@ void UsiOptions::PrintListOfOptions() {
                     option.default_value(),
                     option.min(),
                     option.max());
+    } else if (option.type() == UsiOption::kFileName) {
+      SYNCED_PRINTF("option name %s type filename default %s\n",
+                    name.c_str(),
+                    option.default_string().c_str());
     }
   }
 }
