@@ -384,19 +384,13 @@ UsiOptions::UsiOptions() {
   // 勝ち数が少ない定跡を除外する場合はtrue
   map_.emplace("TinyBook", UsiOption(false));
 
-<<<<<<< HEAD
-  // 探索深さ制限
-  map_.emplace("LimitDepth", UsiOption(0, 0, 99));
-
   // 探索ノード制限
   map_.emplace("LimitNodes", UsiOption(0, 0, INT_MAX));
-=======
   // 読みの深さ（強さのレベル）
   map_.emplace("DepthLimit", UsiOption(kMaxPly, 1, kMaxPly));
 
   // 投了する評価値（評価値がこの値以下になったら、技巧が投了する）
   map_.emplace("ResignScore", UsiOption(-10000, -kScoreInfinite, -500));
->>>>>>> master
 }
 
 void UsiOptions::PrintListOfOptions() {

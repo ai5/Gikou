@@ -46,35 +46,6 @@ void Material::UpdateTables() {
   UpdateExchangeOrders();
 }
 
-#include "material.h"
-
-#include <utility>
-#include "common/array.h"
-#include "evaluation.h"
-
-ArrayMap<Score, PieceType> Material::values_;
-ArrayMap<Score, PieceType> Material::promotion_values_;
-ArrayMap<Score, PieceType> Material::exchange_values_;
-ArrayMap<Score, PieceType> Material::exchange_orders_;
-
-void Material::Init() {
-  values_[kNoPieceType]           = kScoreZero;
-  promotion_values_[kNoPieceType] = kScoreZero;
-  exchange_values_[kNoPieceType]  = kScoreZero;
-  exchange_orders_[kNoPieceType]  = kScoreZero;
-  SetValue(kKing, kScoreZero);
-  UpdateTables();
-}
-
-void Material::UpdateTables() {
-  for (PieceType pt : Piece::all_piece_types()) {
-    if (pt != kKing) {
-      SetValue(pt, g_eval_params->material[pt]);
-    }
-  }
-  UpdateExchangeOrders();
-}
-
 void Material::SetValue(PieceType pt, Score value) {
   // 1. 駒の価値を更新する
   values_[pt] = value;

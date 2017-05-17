@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 技巧 (Gikou), a USI shogi (Japanese chess) playing engine.
  * Copyright (C) 2016-2017 Yosuke Demura
  * except where otherwise indicated.
@@ -20,6 +20,7 @@
 #include "position.h"
 
 #include <cstring>
+#include <cctype>
 #include <algorithm>
 #include <sstream>
 #include "zobrist.h"
@@ -111,7 +112,7 @@ bool Position::operator!=(const Position& rhs) const {
   return !(*this == rhs);
 }
 
-Bitboard Position::AttackersTo(Square to, Bitboard occ) const {
+Bitboard Position::AttackersTo(Square to, const Bitboard& occ) const {
   Bitboard hdk = pieces(kHorse, kDragon, kKing);
   Bitboard rd  = pieces(kRook, kDragon);
   Bitboard bh  = pieces(kBishop, kHorse);
@@ -130,14 +131,14 @@ Bitboard Position::AttackersTo(Square to, Bitboard occ) const {
        | (attackers_to<kWhite, kPawn  >(to, occ) & pieces(kWhitePawn  ));
 }
 
-Bitboard Position::SlidersAttackingTo(Square to, Bitboard occ) const {
+Bitboard Position::SlidersAttackingTo(Square to, const Bitboard& occ) const {
   return (rook_attacks_bb(to, occ) & pieces(kRook, kDragon))
        | (bishop_attacks_bb(to, occ) & pieces(kBishop, kHorse))
        | (lance_attacks_bb(to, occ, kWhite) & pieces(kBlackLance))
        | (lance_attacks_bb(to, occ, kBlack) & pieces(kWhiteLance));
 }
 
-Bitboard Position::SlidersAttackingTo(Square to, Bitboard occ, Color c) const {
+Bitboard Position::SlidersAttackingTo(Square to, const Bitboard& occ, Color c) const {
   Bitboard attackers = (rook_attacks_bb(to, occ) & pieces(kRook, kDragon))
                      | (bishop_attacks_bb(to, occ) & pieces(kBishop, kHorse))
                      | (lance_attacks_bb(to, occ, ~c) & pieces(kLance));
@@ -147,7 +148,8 @@ Bitboard Position::SlidersAttackingTo(Square to, Bitboard occ, Color c) const {
 bool Position::MoveIsLegal(Move move) const {
   return MoveIsPseudoLegal(move) && PseudoLegalMoveIsLegal(move);
 }
-bool Position::MoveIsPseudoLegal(Move move) const {
+
+bool Position::MoveIsPseudoLegal(Move move) const {
   assert(IsOk());
   assert(move.IsOk());
   assert(move.is_real_move());
@@ -247,7 +249,8 @@ bool Position::MoveIsLegal(Move move) const {
 
   return true;
 }
-bool Position::NonDropMoveIsLegal(Move move) const {
+
+bool Position::NonDropMoveIsLegal(Move move) const {
   assert(IsOk());
   assert(move.IsOk());
   assert(move.is_real_move());
@@ -283,7 +286,8 @@ bool Position::MoveIsLegal(Move move) const {
     return on_line.test(move.to());
   }
 }
-bool Position::MoveGivesCheck(Move move) const {
+
+bool Position::MoveGivesCheck(Move move) const {
   assert(move.IsOk());
   assert(move.is_real_move());
   assert(MoveIsPseudoLegal(move));
@@ -319,7 +323,8 @@ bool Position::MoveIsLegal(Move move) const {
 void Position::MakeMove(Move move) {
   MakeMove(move, MoveGivesCheck(move));
 }
-void Position::MakeMove(Move move, bool move_gives_check) {
+
+void Position::MakeMove(Move move, bool move_gives_check) {
   assert(IsOk());
   assert(move.is_real_move());
   assert(MoveIsLegal(move));
@@ -678,7 +683,8 @@ Key64 Position::ComputePositionKey() const {
   }
   return key;
 }
-void Position::PutPiece(Piece p, Square s) {
+
+void Position::PutPiece(Piece p, Square s) {
   assert(num_unused_pieces(p.original_type()) > 0);
   assert(!occupied_bb_.test(s));
   assert(!color_bb_[p.color()].test(s));
@@ -696,7 +702,8 @@ Key64 Position::ComputePositionKey() const {
 
   --num_unused_pieces_[p.original_type()];
 }
-Piece Position::RemovePiece(Square s) {
+
+Piece Position::RemovePiece(Square s) {
   assert(occupied_bb_.test(s));
   assert(color_bb_[piece_on(s).color()].test(s));
   assert(type_bb_[piece_on(s).type()].test(s));
@@ -818,7 +825,8 @@ std::string Position::ToSfen() const {
 
   return sfen;
 }
-Position Position::FromSfen(const std::string& sfen) {
+
+Position Position::FromSfen(const std::string& sfen) {
   Position pos;
   std::istringstream is(sfen);
   std::string board_str, stm_str, hand_str, ply_str;
@@ -907,7 +915,9 @@ Position& Position::Flip() {
   InitStateInfo();
   assert(IsOk());
   return *this;
-}bool Position::IsOk(std::string* const error_message) const {
+}
+
+bool Position::IsOk(std::string* const error_message) const {
 #define EXPECT(cond) if (!(cond)) { \
     if (error_message) \
       *error_message = __FILE__ ":" + std::to_string(__LINE__) + ": " #cond; \
@@ -1059,7 +1069,8 @@ Position& Position::Flip() {
 
 #undef EXPECT
 }
-void Position::Print(Move move) const {
+
+void Position::Print(Move move) const {
   for (Rank r = kRank1; r <= kRank9; ++r) {
     for (File f = kFile9; f >= kFile1; --f) {
       if (is_empty(Square(f, r))) {

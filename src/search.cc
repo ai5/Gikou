@@ -320,7 +320,7 @@ void Search::IterativeDeepening(Node& node, ThreadManager& thread_manager) {
   int64_t last_info_time = 0;
 
   // 反復深化を行う
-  for (int iteration = 1; iteration < kMaxPly && (!time_manager.depth() || iteration <= time_manager.depth()); ++iteration) {
+  for (int iteration = 1; iteration < kMaxPly; ++iteration) {
 
     // ワーカースレッドは、平均して２回に１回、スキップする
     if (!is_master_thread()) {

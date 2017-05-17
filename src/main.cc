@@ -44,7 +44,9 @@ int main(int argc, char **argv) {
   Bitboard::Init();
   ExtendedBoard::Init();
   Zobrist::Init();
+#if !defined(MINIMUM)
   HuffmanCode::Init();
+#endif
   InitMateInOnePly();
   Search::Init();
   PsqPair::Init();
