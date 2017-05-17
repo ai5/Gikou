@@ -99,11 +99,11 @@ class MinimumPos : public ExtendedBoard {
     side_to_move_ = ~side_to_move_;
   }
 
-  Square FindMostValuablePiece(Bitboard pieces) const {
+  Square FindMostValuablePiece(const Bitboard& pieces) const {
     return FindPiece<true>(pieces);
   }
 
-  Square FindLeastValuablePiece(Bitboard pieces) const {
+  Square FindLeastValuablePiece(const Bitboard& pieces) const {
     return FindPiece<false>(pieces);
   }
 
@@ -144,7 +144,7 @@ class MinimumPos : public ExtendedBoard {
 
  private:
   template<bool kMost>
-  Square FindPiece(Bitboard pieces) const {
+  Square FindPiece(const Bitboard& pieces) const {
     assert(pieces.any());
 
     Square best_piece_square;

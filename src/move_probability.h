@@ -89,15 +89,17 @@ class ProbabilityCacheTable {
     * 特定のキーを読み書きする場合に、排他制御を行うためのロックをします.
     */
    void Lock(Key64 key) {
-     mutexes_[key % mutexes_.size()].lock();
-   }
+     // mutexes_[key % mutexes_.size()].lock();
+		 mutexes_[key & 0x1f].lock();
+	 }
 
    /**
     * 特定のキーを読み書きが終わった段階で、ロックを外します.
     */
    void Unlock(Key64 key) {
-     mutexes_[key % mutexes_.size()].unlock();
-   }
+     // mutexes_[key % mutexes_.size()].unlock();
+		 mutexes_[key & 0x1f].unlock();
+	 }
 
    /**
     * このテーブルに保存するときに用いるキーを計算します.

@@ -404,7 +404,7 @@ const auto kKnightTowardsTheRear = key_chain.CreateKey<PieceType>();
 // 玉を動かす手の場合に、5筋とのX距離の増減
 
 template<typename T>
-PieceType GetMostValuablePieceType(Bitboard pieces, const T& board) {
+PieceType GetMostValuablePieceType(const Bitboard& pieces, const T& board) {
   PieceType most_valuable_pt = kNoPieceType;
   Score max_value = kScoreZero;
   pieces.ForEach([&](Square s) {
@@ -419,7 +419,7 @@ PieceType GetMostValuablePieceType(Bitboard pieces, const T& board) {
 }
 
 template<typename T>
-PieceType GetLeastValuablePieceType(Bitboard pieces, const T& board) {
+PieceType GetLeastValuablePieceType(const Bitboard& pieces, const T& board) {
   PieceType least_valuable_pt = kNoPieceType;
   Score min_value = kScoreInfinite;
   pieces.ForEach([&](Square s) {
@@ -447,7 +447,7 @@ ExtendedBoard GetNewExtendedBoard(const ExtendedBoard& old_eb, Move move) {
   return new_eb;
 }
 
-int GetDegreeOfFreedom(Square ksq, Bitboard attacker_controls) {
+int GetDegreeOfFreedom(Square ksq, const Bitboard& attacker_controls) {
   Bitboard edges = file_bb(kFile1) | file_bb(kFile9) | rank_bb(kRank1) | rank_bb(kRank9);
   Bitboard king_neighbors = neighborhood8_bb(ksq);
   Bitboard safe_neighbors = king_neighbors.andnot(attacker_controls);
